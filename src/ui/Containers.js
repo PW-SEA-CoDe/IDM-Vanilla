@@ -11,6 +11,7 @@
 import { CreateDiv, UpdateStyle } from "./UIUtils";
 import { HoverStyle, neutralColors, pwColors } from "./Styles";
 import { Button, LayerTable } from "./Components";
+import { BasicDepthPacking } from "three";
 
 //Global Variables
 const ui = document.getElementById("ui");
@@ -41,7 +42,7 @@ export function Taskbar() {
     //Edges
     borderRadius: "20px",
     backdropFilter: "blur(10px)",
-    boxShadow: `0px 50px 100px ${neutralColors.lightBlack75}`,
+    boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
   };
   const div = CreateDiv("taskbar", style);
   ui.append(div);
@@ -63,8 +64,8 @@ export function Taskbar() {
     //Position
     position: "absolute",
     bottom: "5%",
-    left: "57.5%",
-    width: "20%",
+    left: "45%",
+    width: "50%",
     height: "1%",
     zIndex: "0",
 
@@ -76,10 +77,10 @@ export function Taskbar() {
     overflow: "hidden",
 
     //Color
-    backgroundColor: neutralColors.lightBlack25,
+    backgroundColor: neutralColors.lightBlack50,
 
     //Edges
-    borderRadius: "8px 8px 0px 0px",
+    borderRadius: "8px",
     backdropFilter: "blur(10px)",
     boxShadow: `0px 10px 100px ${neutralColors.lightBlack25}`,
 
@@ -96,9 +97,10 @@ export function Taskbar() {
     //Edges
     padding: "10px",
     //Color
-    color: `${neutralColors.white}`,
+    color: `${neutralColors.offWhite}`,
     //Font
-    fontWeight: "400",
+    fontWeight: "600",
+    textAlign: "center",
   };
   bStyle = {
     height: "90%",
@@ -138,6 +140,148 @@ export function Taskbar() {
     mBody: menuBody,
     mFoot: menuFooter,
   };
+}
+
+export function Sidebar() {
+  const style = {
+    pointerEvents: "all",
+
+    //Position
+    position: "absolute",
+    left: "0%",
+    top: "0%",
+    height: "100%",
+    width: "8%",
+
+    //Display
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "start",
+
+    //Color
+    backgroundColor: neutralColors.lightBlack75,
+
+    //Edges
+    borderRadius: "0px 8px 8px 0px",
+    backdropFilter: "blur(10px)",
+    boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
+
+    //Transitions
+    transition: "width 0.25s ease-in-out",
+  };
+  const sidebar = CreateDiv("sidebar", style);
+  let sidebarState = "closed";
+  ui.append(sidebar);
+
+  let header, body, footer;
+  function SideBarContent() {
+    let headerStyle = {
+      //Position
+      height: "5%",
+      width: "100%",
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    };
+    header = CreateDiv("sb-head", headerStyle);
+    let bodyStyle = {
+      //Position
+      height: "90%",
+      width: "100%",
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "top",
+    };
+    body = CreateDiv("sb-body", bodyStyle);
+    let footerStyle = {
+      //Position
+      height: "5%",
+      width: "100%",
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    };
+    footer = CreateDiv("sb-footer", footerStyle);
+    sidebar.append(header);
+    sidebar.append(body);
+    sidebar.append(footer);
+  }
+  SideBarContent();
+
+  const toggleStyle = {
+    //Position
+    position: "relative",
+    top: "0%",
+    left: "0%",
+    height: "30px",
+    width: "30px",
+
+    //Display
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+
+    //Color
+    backgroundColor: neutralColors.darkGray25,
+
+    //Edges
+    borderRadius: "50%",
+    boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
+  };
+  let sbToggle = CreateDiv("sb-toggle", toggleStyle);
+  header.append(sbToggle);
+
+  function AltButton(id) {
+    let button;
+    let buttonStyle = {
+      height: "65px",
+      width: "85%",
+      backgroundColor: neutralColors.darkGray25,
+      boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
+      borderRadius: "8px",
+      marginTop: "10px",
+    };
+    button = CreateDiv(id, buttonStyle);
+    return button;
+  }
+
+  let button1 = AltButton("button-1");
+  let button2 = AltButton("button-2");
+  let button3 = AltButton("button-3");
+  let button4 = AltButton("button-4");
+  body.append(button1, button2, button3, button4);
+
+  function ToggleWidth(sidebar, sidebarState) {
+    return function () {
+      let openStyle = {
+        //Position
+        width: "40%",
+      };
+      let closedStyle = {
+        //Position
+        width: "8%",
+      };
+      if (sidebarState === "closed") {
+        UpdateStyle(sidebar, openStyle);
+        sidebarState = "open";
+      } else if (sidebarState === "open") {
+        UpdateStyle(sidebar, closedStyle);
+        sidebarState = "closed";
+      }
+    };
+  }
+  let interactiveButtons = [sbToggle, button1, button2, button3, button4];
+  interactiveButtons.forEach((button) => {
+    button.addEventListener("click", ToggleWidth(sidebar, sidebarState));
+  });
 }
 
 export function FloatingTab() {
