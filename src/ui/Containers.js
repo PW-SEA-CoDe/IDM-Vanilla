@@ -464,7 +464,7 @@ export function SlidingSidebar() {
       height: "100%",
       width: "6%",
       minWidth: "50px",
-      maxWidth: "100px",
+      maxWidth: "80px",
       //Display
       display: "flex",
       flexDirection: "column",
@@ -547,9 +547,27 @@ export function SlidingSidebar() {
       footer: sbContent.f,
     };
   }
-  function SubMenu() {}
-
   let sbWrapper = Container();
+
+  function SubMenu() {
+    let menu, menuStyle;
+    menuStyle = {
+      position: "absolute",
+      top: "1%",
+      left: `${parseFloat(getComputedStyle(sbWrapper.wrapper).width) + 5}px`,
+      height: "98%",
+      width: "30%",
+      backgroundColor: neutralColors.lightBlack75,
+      borderRadius: "8px",
+      backdropFilter: "blur(10px)",
+    };
+    menu = CreateDiv("sd-submenu", menuStyle);
+    menu.innerText = "Hello world";
+
+    return {
+      menu: menu,
+    };
+  }
 
   let container = sbWrapper.wrapper;
   let header = sbWrapper.header;
@@ -560,8 +578,12 @@ export function SlidingSidebar() {
   container.append(body);
   container.append(footer);
 
+  let menu = SubMenu();
+  ui.append(menu.menu);
+
   return {
     content: sbWrapper,
+    menu: menu,
   };
 }
 

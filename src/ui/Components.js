@@ -42,6 +42,7 @@ export function Button(id, icon) {
 export function revButton(container, icon, id) {
   let btn, btnStyle;
   btnStyle = {
+    pointerEvents: "all",
     padding: "1px",
     margin: "5px 10px",
     height: `${getParentDimensions(container) - 6}px`,

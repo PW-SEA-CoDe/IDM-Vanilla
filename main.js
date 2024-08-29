@@ -48,6 +48,7 @@ export function UIElements() {
   elements.sb.content.body.append(buttonTwo);
   elements.sb.content.body.append(buttonThree);
   let buttons = [buttonOne, buttonTwo, buttonThree];
+  let menuOpen = null;
   buttons.forEach((item) => {
     window.addEventListener("resize", function () {
       item.style.height = `${
