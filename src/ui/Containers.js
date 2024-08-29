@@ -289,16 +289,16 @@ export function FloatingTab() {
   wrapperStyle = {
     //Location
     position: "absolute",
-    top: "1%",
-    right: "1%",
+    bottom: "1%",
+    left: "1%",
 
     //Size
     minWidth: "200px",
-    width: "10%",
+    width: "15%",
     maxWidth: "100%",
 
     minHeight: "100px",
-    height: "40%",
+    height: "50%",
     maxHeight: "100%",
 
     //Framing
@@ -306,11 +306,14 @@ export function FloatingTab() {
     margin: "10px",
 
     //Style
-    backgroundColor: "rgba(55,55,55,0.5)",
+    backgroundColor: neutralColors.lightBlack75,
     backdropFilter: "blur(5px)",
     borderRadius: "20px",
   };
   wrapper = CreateDiv("fb-wrapper", wrapperStyle);
-  ui.append(wrapper);
-  return wrapper;
+  //ui.append(wrapper);
+  return {
+    wrapper: wrapper,
+    test: "Test",
+  };
 }
