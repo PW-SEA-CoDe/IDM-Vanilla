@@ -7,7 +7,7 @@
  * function SideBarNav should be defined in Menus.js
  * function StackingDiagram should be defined in Graphics.js
  */
-import { CreateDiv, UpdateStyle } from "./UIUtils";
+import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
 import { HoverStyle, neutralColors, pwColors } from "./Styles";
 
 //Functional UI Elements
@@ -37,6 +37,27 @@ export function Button(id, icon) {
   HoverStyle(button, hoverStyle, buttonStyle);
 
   return button;
+}
+
+export function revButton(container, icon, id) {
+  let btn, btnStyle;
+  btnStyle = {
+    padding: "1px",
+    margin: "5px 10px",
+    height: `${getParentDimensions(container) - 6}px`,
+    width: `${getParentDimensions(container) - 6}px`,
+    backgroundImage: icon,
+    backgroundColor: neutralColors.darkGray75,
+    boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    borderRadius: "10px",
+    opacity: "0.75",
+  };
+  btn = CreateDiv(id, btnStyle);
+
+  return btn;
 }
 
 export function LayerTable(layers, cont) {

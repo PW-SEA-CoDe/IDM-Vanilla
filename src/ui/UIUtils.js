@@ -27,3 +27,13 @@ export function CreateDiv(id, style) {
   UpdateStyle(div, style);
   return div;
 }
+
+export function getParentDimensions(parent) {
+  let parentDims = [
+    parseFloat(getComputedStyle(parent).height),
+    parseFloat(getComputedStyle(parent).width),
+  ];
+  let minDim = Math.min(...parentDims);
+
+  return minDim;
+}

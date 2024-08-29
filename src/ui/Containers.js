@@ -11,7 +11,6 @@
 import { CreateDiv, UpdateStyle } from "./UIUtils";
 import { HoverStyle, neutralColors, pwColors } from "./Styles";
 import { Button, LayerTable } from "./Components";
-import { BasicDepthPacking } from "three";
 
 //Global Variables
 const ui = document.getElementById("ui");
@@ -19,6 +18,28 @@ console.log("Imported " + ui.id + " correctly!");
 
 //UI Container Elements
 export function Taskbar() {
+  const constStyle = {
+    //Position
+    position: "absolute",
+    //Display
+    //Color
+    //Edgs
+    //Font
+  };
+  const closeStyle = {
+    //Position
+    //Display
+    //Color
+    //Edgs
+    //Font
+  };
+  const openStyle = {
+    //Position
+    //Display
+    //Color
+    //Edgs
+    //Font
+  };
   const style = {
     pointerEvents: "all",
 
@@ -143,35 +164,169 @@ export function Taskbar() {
 }
 
 export function Sidebar() {
-  const style = {
-    pointerEvents: "all",
+  function Container() {
+    let obj, constStyle, closeStyle, openStyle;
+    constStyle = {
+      pointerEvents: "all",
+      //Position
+      position: "absolute",
+      left: "0%",
+      top: "0%",
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "start",
+      backdropFilter: "blur(10px)",
+      //Color
+      backgroundColor: neutralColors.lightBlack75,
+      color: neutralColors.offWhite,
+      //Edges
+      borderRadius: "0px 8px 8px 0px",
+      boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
+      //Font
+      //Transitions
+      transition: "width 0.25s, max-width 0.25s, min-width 0.25s",
+      transitionTimingFunction: "ease-in-out",
+    };
+    closeStyle = {
+      //Position
+      height: "100%",
+      width: "5%",
+      minWidth: "80px",
+      maxWidth: "300px",
+      //Display
+      //Color
+      //Edges
+      //Font
+      //Transitions
+      transition: "width 0.25s, max-width 0.25s, min-width 0.25s",
+      transitionTimingFunction: "ease-in-out",
+    };
+    openStyle = {
+      //Position
+      height: "100%",
+      width: "35%",
+      minWidth: "100px",
+      maxWidth: "600px",
+      //Display
+      //Color
+      //Edges
+      //Font
+      //Transitions
+      transition: "width 0.25s, max-width 0.25s, min-width 0.25s",
+      transitionTimingFunction: "ease-in-out",
+    };
+    obj = CreateDiv("sidebar", constStyle);
+    UpdateStyle(obj, closeStyle);
+    return {
+      object: obj,
+      closedStyle: closeStyle,
+      openStyle: openStyle,
+    };
+  }
+  const container = Container();
+  ui.append(container.object);
 
+  function Toggle() {
+    let obj, constStyle, closeStyle, openStyle;
+    constStyle = {
+      //Position
+      position: "relative",
+      top: "0%",
+      left: "0%",
+      height: "30px",
+      width: "30px",
+
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      transform: "rotate(45deg)",
+      cursor: "pointer",
+      //Color
+      backgroundColor: neutralColors.darkGray25,
+
+      //Edges
+      borderRadius: "50%",
+      boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
+    };
+    closeStyle = {
+      transform: "rotate(45deg)",
+      transition: "transform 0.25s",
+      transitionTimingFunction: "ease-in-out",
+    };
+    openStyle = {
+      transform: "rotate(90deg)",
+      transition: "transform 0.25s",
+      transitionTimingFunction: "ease-in-out",
+    };
+    obj = CreateDiv("sidebar-toggle", constStyle);
+    UpdateStyle(obj, closeStyle);
+    obj.innerText = "✕";
+  }
+  function button() {
+    return {
+      object: obj,
+      closedStyle: closeStyle,
+      openStyle: openStyle,
+    };
+  }
+  const constStyle = {
+    pointerEvents: "all",
     //Position
     position: "absolute",
     left: "0%",
     top: "0%",
-    height: "100%",
-    width: "8%",
-
     //Display
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "start",
-
+    backdropFilter: "blur(10px)",
     //Color
     backgroundColor: neutralColors.lightBlack75,
-
+    color: neutralColors.offWhite,
     //Edges
     borderRadius: "0px 8px 8px 0px",
-    backdropFilter: "blur(10px)",
     boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
-
+    //Font
     //Transitions
-    transition: "width 0.25s ease-in-out",
+    transition: "width 0.25s, max-width 0.25s, min-width 0.25s",
+    transitionTimingFunction: "ease-in-out",
   };
-  const sidebar = CreateDiv("sidebar", style);
+  const closeStyle = {
+    //Position
+    height: "100%",
+    width: "5%",
+    minWidth: "80px",
+    maxWidth: "300px",
+    //Display
+    //Color
+    //Edges
+    //Font
+    //Transitions
+    transition: "width 0.25s, max-width 0.25s, min-width 0.25s",
+    transitionTimingFunction: "ease-in-out",
+  };
+  const openStyle = {
+    //Position
+    height: "100%",
+    width: "35%",
+    minWidth: "100px",
+    maxWidth: "600px",
+    //Display
+    //Color
+    //Edges
+    //Font
+    //Transitions
+    transition: "width 0.25s, max-width 0.25s, min-width 0.25s",
+    transitionTimingFunction: "ease-in-out",
+  };
+  const sidebar = CreateDiv("sidebar", constStyle);
   let sidebarState = "closed";
+  UpdateStyle(sidebar, closeStyle);
   ui.append(sidebar);
 
   let header, body, footer;
@@ -215,7 +370,7 @@ export function Sidebar() {
   }
   SideBarContent();
 
-  const toggleStyle = {
+  const toggleConstStyle = {
     //Position
     position: "relative",
     top: "0%",
@@ -228,7 +383,8 @@ export function Sidebar() {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-
+    transform: "rotate(45deg)",
+    cursor: "pointer",
     //Color
     backgroundColor: neutralColors.darkGray25,
 
@@ -236,52 +392,177 @@ export function Sidebar() {
     borderRadius: "50%",
     boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
   };
-  let sbToggle = CreateDiv("sb-toggle", toggleStyle);
+  const toggleOpenStyle = {
+    transform: "rotate(90deg)",
+    transition: "transform 0.25s",
+    transitionTimingFunction: "ease-in-out",
+  };
+  const toggleCloseStyle = {
+    transform: "rotate(45deg)",
+    transition: "transform 0.25s",
+    transitionTimingFunction: "ease-in-out",
+  };
+  let sbToggle = CreateDiv("sb-toggle", toggleConstStyle);
+  sbToggle.innerText = "✕";
   header.append(sbToggle);
 
-  function AltButton(id) {
+  function sbButton(id) {
     let button;
     let buttonStyle = {
+      //Position
       height: "65px",
       width: "85%",
+      padding: "5px",
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
       backgroundColor: neutralColors.darkGray25,
       boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
       borderRadius: "8px",
       marginTop: "10px",
     };
     button = CreateDiv(id, buttonStyle);
-    return button;
+    return {
+      button: button,
+    };
   }
 
-  let button1 = AltButton("button-1");
-  let button2 = AltButton("button-2");
-  let button3 = AltButton("button-3");
-  let button4 = AltButton("button-4");
+  let button1 = sbButton("button-1").button;
+  let button2 = sbButton("button-2").button;
+  let button3 = sbButton("button-3").button;
+  let button4 = sbButton("button-4").button;
   body.append(button1, button2, button3, button4);
 
   function ToggleWidth(sidebar, sidebarState) {
     return function () {
-      let openStyle = {
-        //Position
-        width: "40%",
-      };
-      let closedStyle = {
-        //Position
-        width: "8%",
-      };
       if (sidebarState === "closed") {
         UpdateStyle(sidebar, openStyle);
+        UpdateStyle(sbToggle, toggleOpenStyle);
         sidebarState = "open";
       } else if (sidebarState === "open") {
-        UpdateStyle(sidebar, closedStyle);
+        UpdateStyle(sidebar, closeStyle);
+        UpdateStyle(sbToggle, toggleCloseStyle);
         sidebarState = "closed";
       }
     };
   }
-  let interactiveButtons = [sbToggle, button1, button2, button3, button4];
+  let interactiveButtons = [sbToggle];
   interactiveButtons.forEach((button) => {
     button.addEventListener("click", ToggleWidth(sidebar, sidebarState));
   });
+}
+
+export function SlidingSidebar() {
+  function Container() {
+    let obj, sStyle;
+    sStyle = {
+      //Position
+      top: "0%",
+      left: "0%",
+      height: "100%",
+      width: "6%",
+      minWidth: "50px",
+      maxWidth: "100px",
+      //Display
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "start",
+      //Edges
+      borderRadius: "8px",
+      //Color
+      backgroundColor: neutralColors.lightBlack75,
+      color: neutralColors.offWhite,
+      //Font
+      //Transitions
+    };
+    obj = CreateDiv("sidebar", sStyle);
+
+    function Content() {
+      let head, body, foot;
+      let hStyle, bStyle, fStyle;
+      hStyle = {
+        //Position
+        height: "10%",
+        width: "100%",
+        //Display
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "start",
+        //Edges
+        borderRadius: "8px",
+        //Color
+        //Font
+        //Transitions
+      };
+      bStyle = {
+        //Position
+        height: "80%",
+        width: "100%",
+        //Display
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "start",
+        //Edges
+        borderRadius: "8px",
+        //Color
+        //Font
+        //Transitions
+      };
+      fStyle = {
+        //Position
+        height: "10%",
+        width: "100%",
+        //Display
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "start",
+        //Edges
+        borderRadius: "8px",
+        //Color
+        //Font
+        //Transitions
+      };
+      head = CreateDiv("sidebar-head", hStyle);
+      body = CreateDiv("sidebar-body", bStyle);
+      foot = CreateDiv("sidebar-foot", fStyle);
+
+      return {
+        h: head,
+        b: body,
+        f: foot,
+      };
+    }
+    let sbContent = Content();
+
+    return {
+      wrapper: obj,
+      header: sbContent.h,
+      body: sbContent.b,
+      footer: sbContent.f,
+    };
+  }
+  function SubMenu() {}
+
+  let sbWrapper = Container();
+
+  let container = sbWrapper.wrapper;
+  let header = sbWrapper.header;
+  let body = sbWrapper.body;
+  let footer = sbWrapper.footer;
+  ui.append(container);
+  container.append(header);
+  container.append(body);
+  container.append(footer);
+
+  return {
+    content: sbWrapper,
+  };
 }
 
 export function FloatingTab() {

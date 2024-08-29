@@ -6,7 +6,6 @@
 
 // Modules Imports
 import * as THREE from "https://unpkg.com/three@0.164.1/build/three.module.js";
-import { color } from "three/examples/jsm/nodes/Nodes.js";
 
 //Generic Light Types
 
