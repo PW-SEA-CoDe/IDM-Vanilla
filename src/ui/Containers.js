@@ -163,7 +163,17 @@ export function Taskbar() {
   };
 }
 
+/**
+ *
+ */
 export function Sidebar() {
+  function Wrapper() {}
+  function Content() {}
+  function Menu() {}
+  function MenuContent() {}
+}
+
+export function OldSidebar() {
   function Container() {
     let obj, constStyle, closeStyle, openStyle;
     constStyle = {
@@ -452,139 +462,6 @@ export function Sidebar() {
   interactiveButtons.forEach((button) => {
     button.addEventListener("click", ToggleWidth(sidebar, sidebarState));
   });
-}
-
-export function SlidingSidebar() {
-  function Container() {
-    let obj, sStyle;
-    sStyle = {
-      //Position
-      top: "0%",
-      left: "0%",
-      height: "100%",
-      width: "6%",
-      minWidth: "50px",
-      maxWidth: "80px",
-      //Display
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "start",
-      //Edges
-      borderRadius: "8px",
-      //Color
-      backgroundColor: neutralColors.lightBlack75,
-      color: neutralColors.offWhite,
-      //Font
-      //Transitions
-    };
-    obj = CreateDiv("sidebar", sStyle);
-
-    function Content() {
-      let head, body, foot;
-      let hStyle, bStyle, fStyle;
-      hStyle = {
-        //Position
-        height: "10%",
-        width: "100%",
-        //Display
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "start",
-        //Edges
-        borderRadius: "8px",
-        //Color
-        //Font
-        //Transitions
-      };
-      bStyle = {
-        //Position
-        height: "80%",
-        width: "100%",
-        //Display
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "start",
-        //Edges
-        borderRadius: "8px",
-        //Color
-        //Font
-        //Transitions
-      };
-      fStyle = {
-        //Position
-        height: "10%",
-        width: "100%",
-        //Display
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "start",
-        //Edges
-        borderRadius: "8px",
-        //Color
-        //Font
-        //Transitions
-      };
-      head = CreateDiv("sidebar-head", hStyle);
-      body = CreateDiv("sidebar-body", bStyle);
-      foot = CreateDiv("sidebar-foot", fStyle);
-
-      return {
-        h: head,
-        b: body,
-        f: foot,
-      };
-    }
-    let sbContent = Content();
-
-    return {
-      wrapper: obj,
-      header: sbContent.h,
-      body: sbContent.b,
-      footer: sbContent.f,
-    };
-  }
-  let sbWrapper = Container();
-
-  function SubMenu() {
-    let menu, menuStyle;
-    menuStyle = {
-      position: "absolute",
-      top: "1%",
-      left: `${parseFloat(getComputedStyle(sbWrapper.wrapper).width) + 5}px`,
-      height: "98%",
-      width: "30%",
-      backgroundColor: neutralColors.lightBlack75,
-      borderRadius: "8px",
-      backdropFilter: "blur(10px)",
-    };
-    menu = CreateDiv("sd-submenu", menuStyle);
-    menu.innerText = "Hello world";
-
-    return {
-      menu: menu,
-    };
-  }
-
-  let container = sbWrapper.wrapper;
-  let header = sbWrapper.header;
-  let body = sbWrapper.body;
-  let footer = sbWrapper.footer;
-  ui.append(container);
-  container.append(header);
-  container.append(body);
-  container.append(footer);
-
-  let menu = SubMenu();
-  ui.append(menu.menu);
-
-  return {
-    content: sbWrapper,
-    menu: menu,
-  };
 }
 
 export function FloatingTab() {
