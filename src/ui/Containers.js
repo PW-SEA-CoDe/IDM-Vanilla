@@ -198,7 +198,7 @@ export function Sidebar() {
     let header, body, footer;
     header = CreateDiv("sidebar-panel-header", SidebarStyle.panelHeader);
     body = CreateDiv("sidebar-panel-body", SidebarStyle.panelBody);
-    footer = CreateDiv("sidebar-panel-footer", SidebarStyle.footer);
+    footer = CreateDiv("sidebar-panel-footer", SidebarStyle.panelFooter);
     wrapper.append(header, body, footer);
     return {
       wrapper: wrapper,
@@ -230,8 +230,8 @@ export function Sidebar() {
       }
     });
   }
-  let menu = Menu();
   let panel = Panel();
+  let menu = Menu();
   let toggle = ToggleButton(menu.header, panel.wrapper);
   return {
     menu: menu,
@@ -239,8 +239,6 @@ export function Sidebar() {
   };
   console.log(Menu().footer);
 }
-let test = Sidebar();
-console.log(test.panel.body);
 
 export function OldSidebar() {
   function Container() {

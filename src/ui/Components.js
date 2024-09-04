@@ -43,11 +43,12 @@ export function revButton(container, icon, id) {
   let btn, btnStyle;
   btnStyle = {
     pointerEvents: "all",
+    cursor: "pointer",
     padding: "1px",
-    margin: "5px 10px",
-    height: `${getParentDimensions(container) - 6}px`,
-    width: `${getParentDimensions(container) - 6}px`,
-    backgroundImage: icon,
+    margin: "10px 0px",
+    height: `${getParentDimensions(container) - 25}px`,
+    width: `${getParentDimensions(container) - 25}px`,
+    backgroundImage: `url(${icon})`,
     backgroundColor: neutralColors.darkGray75,
     boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
     backgroundSize: "contain",
@@ -57,6 +58,7 @@ export function revButton(container, icon, id) {
     opacity: "0.75",
   };
   btn = CreateDiv(id, btnStyle);
+  container.append(btn);
 
   return btn;
 }

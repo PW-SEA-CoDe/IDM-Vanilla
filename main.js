@@ -22,42 +22,27 @@ export function UIElements() {
   let elements = {};
   let ui = document.getElementById("ui");
   elements.tb = Taskbar();
-  elements.sb = OldSidebar();
-  /*
-  console.log(elements.sb.content.header);
-  let buttonOne = revButton(
-    elements.sb.content.body,
-    `url("../assets/icons/Layers.png")`,
-    "button-1"
+  elements.sb = Sidebar();
+  let layersBtn = revButton(
+    elements.sb.menu.body,
+    "/assets/icons/Layers.png",
+    "layer-button"
   );
-  let buttonTwo = revButton(
-    elements.sb.content.body,
-    `url("../assets/icons/Cameras.png")`,
-    "button-2"
+  let camerasBtn = revButton(
+    elements.sb.menu.body,
+    "/assets/icons/Cameras.png",
+    "layer-button"
   );
-  let buttonThree = revButton(
-    elements.sb.content.body,
-    `url("../assets/icons/Metrics.png")`,
-    "button-3"
+  let gorupsBtn = revButton(
+    elements.sb.menu.body,
+    "/assets/icons/Groups.png",
+    "layer-button"
   );
-  elements.sb.content.body.append(buttonOne);
-  elements.sb.content.body.append(buttonTwo);
-  elements.sb.content.body.append(buttonThree);
-  let buttons = [buttonOne, buttonTwo, buttonThree];
-  let menuOpen = null;
-  buttons.forEach((item) => {
-    window.addEventListener("resize", function () {
-      item.style.height = `${
-        getParentDimensions(elements.sb.content.body) - 6
-      }px`;
-      item.style.width = `${
-        getParentDimensions(elements.sb.content.body) - 6
-      }px`;
-    });
-  });
-  */
-  //elements.sb = Sidebar();
-  //elements.fb = FloatingTab();
+  let metricsBtn = revButton(
+    elements.sb.menu.body,
+    "/assets/icons/Metrics.png",
+    "layer-button"
+  );
 
   console.log(elements);
   return elements;
