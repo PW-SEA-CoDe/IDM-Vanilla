@@ -1,4 +1,4 @@
-import { FloatingTab, Sidebar, Taskbar } from "./src/ui/Containers";
+import { FloatingTab, OldSidebar, Sidebar, Taskbar } from "./src/ui/Containers";
 import { Button, revButton } from "./src/ui/Components";
 import { getParentDimensions, UpdateStyle } from "./src/ui/UIUtils";
 
@@ -22,7 +22,8 @@ export function UIElements() {
   let elements = {};
   let ui = document.getElementById("ui");
   elements.tb = Taskbar();
-  elements.sb = Sidebar();
+  elements.sb = OldSidebar();
+  /*
   console.log(elements.sb.content.header);
   let buttonOne = revButton(
     elements.sb.content.body,
@@ -54,6 +55,7 @@ export function UIElements() {
       }px`;
     });
   });
+  */
   //elements.sb = Sidebar();
   //elements.fb = FloatingTab();
 

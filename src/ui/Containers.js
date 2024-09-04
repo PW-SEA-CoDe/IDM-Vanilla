@@ -8,13 +8,19 @@
  * function StackingDiagram should be defined in Graphics.js
  */
 
-import { CreateDiv, UpdateStyle } from "./UIUtils";
-import { HoverStyle, neutralColors, pwColors } from "./Styles";
+import {
+  addStylesheet,
+  CreateDiv,
+  getParentDimensions,
+  UpdateStyle,
+} from "./UIUtils";
+import { HoverStyle, neutralColors, pwColors, SidebarStyle } from "./Styles";
 import { Button, LayerTable } from "./Components";
 
 //Global Variables
 const ui = document.getElementById("ui");
 console.log("Imported " + ui.id + " correctly!");
+addStylesheet("/src/ui/Containers.css");
 
 //UI Container Elements
 export function Taskbar() {
@@ -167,11 +173,74 @@ export function Taskbar() {
  *
  */
 export function Sidebar() {
-  function Wrapper() {}
-  function Content() {}
-  function Menu() {}
-  function MenuContent() {}
+  function Menu() {
+    let wrapper;
+    wrapper = CreateDiv("sidebar-menu-wrapper", SidebarStyle.wrapper);
+    ui.append(wrapper);
+
+    let header, body, footer;
+    header = CreateDiv("sidebar-menu-header", SidebarStyle.header);
+    body = CreateDiv("sidebar-menu-body", SidebarStyle.body);
+    footer = CreateDiv("sidebar-menu-footer", SidebarStyle.footer);
+    wrapper.append(header, body, footer);
+    return {
+      wrapper: wrapper,
+      header: header,
+      body: body,
+      footer: footer,
+    };
+  }
+  function Panel() {
+    let wrapper;
+    wrapper = CreateDiv("sidebar-panel-wrapper", SidebarStyle.panelWrapper);
+    ui.append(wrapper);
+
+    let header, body, footer;
+    header = CreateDiv("sidebar-panel-header", SidebarStyle.panelHeader);
+    body = CreateDiv("sidebar-panel-body", SidebarStyle.panelBody);
+    footer = CreateDiv("sidebar-panel-footer", SidebarStyle.footer);
+    wrapper.append(header, body, footer);
+    return {
+      wrapper: wrapper,
+      header: header,
+      body: body,
+      footer: footer,
+    };
+  }
+  function ToggleButton(targ, panel) {
+    let parentDim = getParentDimensions(targ);
+    let adjustedStyle = {
+      height: `${parentDim - 10}px`,
+      width: `${parentDim - 10}px`,
+    };
+    let toggle = CreateDiv("sidebar-panel-toggle", SidebarStyle.toggle);
+    let toggleOpen = false;
+    UpdateStyle(toggle, adjustedStyle);
+    toggle.innerText = "✕";
+    targ.append(toggle);
+    toggle.addEventListener("click", function () {
+      if (toggleOpen === false) {
+        toggle.style.transform = "rotate(0deg)";
+        panel.style.opacity = "1";
+        toggleOpen = true;
+      } else {
+        toggle.style.transform = "rotate(45deg)";
+        toggleOpen = false;
+        panel.style.opacity = "0";
+      }
+    });
+  }
+  let menu = Menu();
+  let panel = Panel();
+  let toggle = ToggleButton(menu.header, panel.wrapper);
+  return {
+    menu: menu,
+    panel: panel,
+  };
+  console.log(Menu().footer);
 }
+let test = Sidebar();
+console.log(test.panel.body);
 
 export function OldSidebar() {
   function Container() {

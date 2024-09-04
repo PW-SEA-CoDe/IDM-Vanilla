@@ -37,3 +37,12 @@ export function getParentDimensions(parent) {
 
   return minDim;
 }
+
+export function addStylesheet(path) {
+  let head = document.getElementsByTagName("head")[0];
+  let style = document.createElement("link");
+  style.rel = "stylesheet";
+  style.type = "text/css";
+  style.href = path;
+  head.append(style);
+}
