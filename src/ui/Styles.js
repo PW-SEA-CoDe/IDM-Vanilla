@@ -252,3 +252,36 @@ export let LayerTableStyle = {
   layerActiveStyle: {},
   layerHiddenStyle: {},
 };
+
+export let CameraControlsStyle = {
+  wrapper: {
+    pointerEvents: "all",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "start",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    padding: "10px",
+  },
+  sunPanel: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "start",
+    backgroundColor: neutralColors.lightBlack50,
+    borderRadius: "10px",
+  },
+  cameraPanel: {
+    width: "100%",
+    height: "50%",
+    backgroundColor: neutralColors.fullBlack,
+    borderRadius: "10px",
+  },
+  positionSlider: {
+    width: "90%",
+    height: "10%",
+  },
+};

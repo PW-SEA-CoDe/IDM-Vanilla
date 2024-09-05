@@ -169,9 +169,6 @@ export function Taskbar() {
   };
 }
 
-/**
- *
- */
 export function Sidebar() {
   function Menu() {
     let wrapper;

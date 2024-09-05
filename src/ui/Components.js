@@ -8,7 +8,7 @@
  * function StackingDiagram should be defined in Graphics.js
  */
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
-import { ButtonStyle, neutralColors } from "./Styles";
+import { ButtonStyle, CameraControlsStyle, neutralColors } from "./Styles";
 
 //Functional UI Elements
 export function Button(container, icon, id) {
@@ -173,6 +173,33 @@ export function LayerTable(layers, cont) {
 }
 
 export function CameraControls(container) {
-  function SunControl() {}
-  function CameraControl() {}
+  let wrapper, sunConPanel, cameraConPanel;
+  wrapper = CreateDiv("controls", CameraControlsStyle.wrapper);
+  function SunControl() {
+    let panel, position, height, temp;
+    panel = CreateDiv("sun-controls", CameraControlsStyle.sunPanel);
+    position = document.createElement("input");
+    position.type = "range";
+    UpdateStyle(position, CameraControlsStyle.positionSlider);
+    height = document.createElement("input");
+    height.type = "range";
+    UpdateStyle(height, CameraControlsStyle.positionSlider);
+    panel.append(position);
+    panel.append(height);
+    return {
+      panel: panel,
+    };
+  }
+  function CameraControl() {
+    let panel;
+    panel = CreateDiv("camera-controls", CameraControlsStyle.cameraPanel);
+    return {
+      panel: panel,
+    };
+  }
+  cameraConPanel = CameraControl();
+  sunConPanel = SunControl();
+  wrapper.append(sunConPanel.panel);
+  wrapper.append(cameraConPanel.panel);
+  container.append(wrapper);
 }
