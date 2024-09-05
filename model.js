@@ -55,10 +55,10 @@ camera.fov = currentView.fov;
 console.log(camera);
 
 //UI
-//const fb = UIElements().fb;
-const menu = UIElements().tb.mBody;
+const uiElements = UIElements();
+let panelBody = uiElements.sb.panel.body;
 
-LayerTable(model.layers, menu);
+LayerTable(model.layers, panelBody);
 console.log(model);
 
 //Post-Processing

@@ -38,6 +38,8 @@ export let pwColors = {
 };
 
 export let neutralColors = {
+  //None
+  empty: "rgba(0,0,0,0)",
   //Whites
   white: "rgba(255,255,255,1)",
   white75: "rgba(255,255,255,0.75)",
@@ -100,7 +102,7 @@ export let SidebarStyle = {
     minWidth: "80px",
     maxWidth: "300px",
     height: "100%",
-    right: "0",
+    left: "0",
     top: "0",
     backgroundColor: neutralColors.lightBlack75,
     boxShadow: `0px 0px 10px ${neutralColors.lightBlack50}`,
@@ -132,7 +134,7 @@ export let SidebarStyle = {
     justifyContent: "center",
     width: "30%",
     height: "100%",
-    right: "max(5%, 80px)",
+    left: "max(5%, 80px)",
     top: "0",
     padding: "5px",
     backgroundColor: neutralColors.darkGray75,
@@ -141,28 +143,29 @@ export let SidebarStyle = {
     transitionTimingFunction: "ease",
   },
   panelHeader: {
-    height: "10%",
+    height: "5%",
     width: "100%",
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "start",
     borderRadius: "10px",
-    backgroundColor: neutralColors.offWhite75,
+    backgroundColor: "none",
   },
   panelBody: {
     height: "70%",
     width: "100%",
     marginTop: "5px",
+    padding: "10px",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "10px",
-    backgroundColor: neutralColors.offWhite75,
+    backgroundColor: neutralColors.offWhite25,
   },
   panelFooter: {
-    height: "15%",
+    height: "25%",
     width: "100%",
     marginTop: "5px",
     display: "flex",
@@ -170,7 +173,26 @@ export let SidebarStyle = {
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "10px",
-    backgroundColor: neutralColors.offWhite75,
+    backgroundColor: "none",
+  },
+  panelHeadIcon: {
+    width: "30%",
+    height: "100%",
+    backgroundColor: "none",
+    backgroundImage: "url(/assets/icons/Layers.png",
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+  },
+  panelHeadTitle: {
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "start",
+    color: neutralColors.offWhite,
+    fontSize: "18px",
+    fontWeight: "400",
   },
   toggle: {
     pointerEvents: "all",
@@ -189,8 +211,44 @@ export let SidebarStyle = {
     backgroundColor: neutralColors.darkGray75,
     color: neutralColors.offWhite,
     fontSize: "16px",
-    transform: "rotate(45deg)",
+    transform: "rotate(-45deg)",
     transition: "transform 0.5s",
     transitionTimingFunction: "ease",
   },
+};
+
+export let ButtonStyle = {
+  static: {
+    pointerEvents: "all",
+    cursor: "pointer",
+    padding: "1px",
+    margin: "10px 0px",
+    backgroundColor: neutralColors.empty,
+    boxShadow: `0px 0px 0px ${neutralColors.lightBlack75}`,
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    borderRadius: "10px",
+    opacity: "0.75",
+  },
+  hover: {
+    backgroundColor: neutralColors.darkGray,
+    boxShadow: `0px 5px 5px ${neutralColors.lightBlack}`,
+  },
+};
+
+export let LayerTableStyle = {
+  wrapper: {
+    width: "100%",
+    height: "5%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    fontSize: "14px",
+    fontWeight: "600",
+    pointerEvents: "all",
+  },
+  layerActiveStyle: {},
+  layerHiddenStyle: {},
 };

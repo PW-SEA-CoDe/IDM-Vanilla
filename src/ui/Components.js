@@ -8,7 +8,13 @@
  * function StackingDiagram should be defined in Graphics.js
  */
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
-import { HoverStyle, neutralColors, pwColors } from "./Styles";
+import {
+  ButtonStyle,
+  HoverStyle,
+  neutralColors,
+  pwColors,
+  LayerTableStyle,
+} from "./Styles";
 
 //Functional UI Elements
 export function Button(id, icon) {
@@ -40,25 +46,18 @@ export function Button(id, icon) {
 }
 
 export function revButton(container, icon, id) {
-  let btn, btnStyle;
-  btnStyle = {
-    pointerEvents: "all",
-    cursor: "pointer",
-    padding: "1px",
-    margin: "10px 0px",
-    height: `${getParentDimensions(container) - 25}px`,
-    width: `${getParentDimensions(container) - 25}px`,
-    backgroundImage: `url(${icon})`,
-    backgroundColor: neutralColors.darkGray75,
-    boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
-    backgroundSize: "contain",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    borderRadius: "10px",
-    opacity: "0.75",
-  };
-  btn = CreateDiv(id, btnStyle);
+  let btn;
+  btn = CreateDiv(id, ButtonStyle.static);
+  btn.style.height = `${getParentDimensions(container) - 25}px`;
+  btn.style.width = `${getParentDimensions(container) - 25}px`;
+  btn.style.backgroundImage = `url(${icon})`;
   container.append(btn);
+  btn.addEventListener("mouseover", function () {
+    UpdateStyle(btn, ButtonStyle.hover);
+  });
+  btn.addEventListener("mouseleave", function () {
+    UpdateStyle(btn, ButtonStyle.static);
+  });
 
   return btn;
 }
@@ -66,27 +65,10 @@ export function revButton(container, icon, id) {
 export function LayerTable(layers, cont) {
   const container = cont;
 
-  function Title() {
-    const wrapperStyle = {
-      width: "100%",
-      height: "5%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      color: "white",
-      fontSize: "14px",
-      fontWeight: "600",
-      pointerEvents: "all",
-    };
-    const wrapper = CreateDiv("layer-title", wrapperStyle);
-    //wrapper.innerText = "Layer Table";
-    container.append(wrapper);
-  }
-
   function ConstructTable() {
     const wrapperStyle = {
       width: "100%",
-      height: "95%",
+      height: "100%",
       display: "flex",
       flexDirection: "column",
 
@@ -174,7 +156,6 @@ export function LayerTable(layers, cont) {
 
     container.append(wrapper);
   }
-  Title();
   ConstructTable();
 
   function LayerToggle(layers) {
