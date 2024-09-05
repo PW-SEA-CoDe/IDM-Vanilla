@@ -8,44 +8,10 @@
  * function StackingDiagram should be defined in Graphics.js
  */
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
-import {
-  ButtonStyle,
-  HoverStyle,
-  neutralColors,
-  pwColors,
-  LayerTableStyle,
-} from "./Styles";
+import { ButtonStyle, neutralColors } from "./Styles";
 
 //Functional UI Elements
-export function Button(id, icon) {
-  let buttonStyle = {
-    padding: "1px",
-    margin: "0px 10px",
-    height: "90%",
-    width: "10%",
-    backgroundImage: icon,
-    backgroundColor: neutralColors.darkGray25,
-    boxShadow: `0px 5px 10px ${neutralColors.lightBlack75}`,
-    backgroundSize: "contain",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    borderRadius: "10px",
-    opacity: "0.75",
-  };
-  let hoverStyle = {
-    opacity: "1.0",
-  };
-  let button = CreateDiv(id, buttonStyle);
-  //let buttonHeight = window.getComputedStyle(button).getPropertyValue("height");
-  //buttonStyle.width = buttonHeight;
-
-  UpdateStyle(button, buttonStyle);
-  HoverStyle(button, hoverStyle, buttonStyle);
-
-  return button;
-}
-
-export function revButton(container, icon, id) {
+export function Button(container, icon, id) {
   let btn;
   btn = CreateDiv(id, ButtonStyle.static);
   btn.style.height = `${getParentDimensions(container) - 25}px`;
@@ -204,4 +170,9 @@ export function LayerTable(layers, cont) {
     }
   }
   LayerToggle(layers);
+}
+
+export function CameraControls(container) {
+  function SunControl() {}
+  function CameraControl() {}
 }

@@ -9,7 +9,7 @@ import {
 import { handleWindowResize } from "./src/scene/SceneUtils";
 import { PointerHover } from "./src/model/Interaction";
 import { UIElements } from "./main";
-import { LayerTable } from "./src/ui/Components";
+import { CameraControls, LayerTable } from "./src/ui/Components";
 import FetchViewData from "./src/model/LoadViews";
 import PostProcessing from "./src/scene/Postprocessing";
 
@@ -57,6 +57,25 @@ console.log(camera);
 //UI
 const uiElements = UIElements();
 let panelBody = uiElements.sb.panel.body;
+let buttons = uiElements.buttons;
+function getActiveMenuButton() {
+  for (const [key, value] of Object.entries(buttons)) {
+    let button = value;
+    button.addEventListener("click", function () {
+      panelBody.innerHTML = "";
+      let activeLink = key;
+      uiElements.sb.panel.headerTitle.innerText =
+        activeLink.toLocaleUpperCase();
+      console.log(activeLink);
+      if (activeLink === "layers") {
+        LayerTable(model.layers, panelBody);
+      } else if ((activeLink = "cameras")) {
+        CameraControls(panelBody);
+      }
+    });
+  }
+}
+getActiveMenuButton();
 
 LayerTable(model.layers, panelBody);
 console.log(model);

@@ -14,8 +14,8 @@ import {
   getParentDimensions,
   UpdateStyle,
 } from "./UIUtils";
-import { HoverStyle, neutralColors, pwColors, SidebarStyle } from "./Styles";
-import { Button, LayerTable } from "./Components";
+import { neutralColors, SidebarStyle } from "./Styles";
+import { Button } from "./Components";
 
 //Global Variables
 const ui = document.getElementById("ui");
@@ -200,21 +200,28 @@ export function Sidebar() {
     body = CreateDiv("sidebar-panel-body", SidebarStyle.panelBody);
     footer = CreateDiv("sidebar-panel-footer", SidebarStyle.panelFooter);
     wrapper.append(header, body, footer);
+    function Header() {
+      let wrapper = header;
+      let icon, title;
+      icon = CreateDiv("panel-head-icon", SidebarStyle.panelHeadIcon);
+      wrapper.append(icon);
+      title = CreateDiv("panel-head-title", SidebarStyle.panelHeadTitle);
+      title.innerText = "Layers";
+      wrapper.append(title);
+      return {
+        icon: icon,
+        title: title,
+      };
+    }
+    let headerContent = Header();
     return {
       wrapper: wrapper,
       header: header,
+      headerIcon: headerContent.icon,
+      headerTitle: headerContent.title,
       body: body,
       footer: footer,
     };
-  }
-  function Header() {
-    let wrapper = panel.header;
-    let icon, title;
-    icon = CreateDiv("panel-head-icon", SidebarStyle.panelHeadIcon);
-    wrapper.append(icon);
-    title = CreateDiv("panel-head-title", SidebarStyle.panelHeadTitle);
-    title.innerText = "Layers";
-    wrapper.append(title);
   }
   function ToggleButton(targ, panel) {
     let parentDim = getParentDimensions(targ);
@@ -248,7 +255,6 @@ export function Sidebar() {
   }
   let panel = Panel();
   let menu = Menu();
-  let headContent = Header();
   let toggle = ToggleButton(menu.header, panel.wrapper);
   return {
     menu: menu,

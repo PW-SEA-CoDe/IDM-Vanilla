@@ -1,17 +1,5 @@
-import { FloatingTab, Sidebar, Taskbar } from "./src/ui/Containers";
-import { Button, revButton } from "./src/ui/Components";
-import { getParentDimensions, UpdateStyle } from "./src/ui/UIUtils";
-
-//Call desired UI container(s)
-/**
- * Return UI container as dict of components:
- * - Main (outer most wrapper)
- * - Head, body, etc. (for accessing in Model.js)
- * - any additional information
- */
-//Call desired UI menu (pop-up, expand, accordian)
-
-//Call desired container & menu content (Layer Table, Camera, Stacking diagram, etc.)
+import { Sidebar } from "./src/ui/Containers";
+import { Button } from "./src/ui/Components";
 
 //Wrap all UI elements in dict to be called in model to avoid document.getElement loop
 
@@ -24,27 +12,39 @@ export function UIElements() {
 
   elements.sb = Sidebar();
   elements.buttons = {
-    layers: revButton(
+    layers: Button(
       elements.sb.menu.body,
       "/assets/icons/Layers.png",
       "layer-button"
     ),
-    cameras: revButton(
+    cameras: Button(
       elements.sb.menu.body,
       "/assets/icons/Cameras.png",
       "camera-button"
     ),
-    groups: revButton(
+    groups: Button(
       elements.sb.menu.body,
       "/assets/icons/Groups.png",
       "group-button"
     ),
-    metrics: revButton(
+    metrics: Button(
       elements.sb.menu.body,
       "/assets/icons/Metrics.png",
       "metrics-button"
     ),
   };
+  function ActiveButton() {
+    let activeLink;
+    for (const [key, value] of Object.entries(elements.buttons)) {
+      let button = value;
+      button.addEventListener("click", function () {
+        console.log(`${key} button clicked`);
+        activeLink = key;
+      });
+    }
+    return activeLink;
+  }
+  let activeButton = ActiveButton();
 
   console.log(elements);
   console.log(elements.buttons);
