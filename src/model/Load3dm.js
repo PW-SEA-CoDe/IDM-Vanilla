@@ -28,30 +28,51 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
     loader.load(
       url,
       function (object) {
+        //Overall model functions
         object = object;
+        object.up = new THREE.Vector3(0, 0, 1);
 
+        //Model children exports
         let geometry = [];
         let meshs = [];
         let lines = [];
+        let ogMats = [];
+        let mats = [];
         let avgCenter;
         avgCenter = {
           x: 0,
           y: 0,
           z: 0,
         };
-        object.up = new THREE.Vector3(0, 0, 1);
 
+        // Child Functions
         object.children.forEach((child) => {
+          //Do this for all children
           geometry.push(child);
 
+          //Do this for Mesh children
           if (child.type === "Mesh") {
             meshs.push(child);
             child.castShadow = castShadow;
             child.receiveShadow = receiveShadow;
-          } else if (child.type === "Line") {
+            DefCustomMaterial(child);
+          }
+          //Do this for Line Children
+          if (child.type === "Line") {
             lines.push(child);
           }
         });
+
+        function DefCustomMaterial(child) {
+          let origMaterial = child.material.clone();
+          let newMaterial = new THREE.MeshStandardMaterial();
+          newMaterial.color = origMaterial.color.clone();
+          let newCopyMaterial = newMaterial.clone();
+          newCopyMaterial.uuid = child.uuid;
+          ogMats.push(newCopyMaterial);
+          mats.push(newMaterial);
+          child.material = newMaterial;
+        }
 
         function GetAverageCenter() {
           object.children.forEach((child) => {
@@ -165,6 +186,8 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
           layers: layerTree,
           lines: lines,
           meshes: meshs,
+          ogMaterials: ogMats,
+          materials: mats,
           object: object,
         });
       },

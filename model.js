@@ -7,7 +7,7 @@ import {
   HemisphereLight,
 } from "./src/scene/Lighting";
 import { handleWindowResize } from "./src/scene/SceneUtils";
-import { PointerHover } from "./src/model/Interaction";
+import { HoverColor, PointerHover } from "./src/model/Interaction";
 import { UIElements } from "./main";
 import { CameraControls, LayerTable } from "./src/ui/Components";
 import FetchViewData from "./src/model/LoadViews";
@@ -86,6 +86,7 @@ const composer = PostProcessing(scene, renderer, camera);
 //Interaction
 window.addEventListener("mousemove", function (event) {
   let intersected = PointerHover(event, model.meshes, camera).object;
+  HoverColor(model.meshes, model.ogMaterials, intersected);
   //console.log(intersected);
 });
 
