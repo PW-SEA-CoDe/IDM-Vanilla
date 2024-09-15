@@ -9,6 +9,7 @@
  */
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
 import { ButtonStyle, CameraControlsStyle, neutralColors } from "./Styles";
+import { contain } from "three/src/extras/TextureUtils.js";
 
 //Functional UI Elements
 export function Button(container, icon, id) {
@@ -23,6 +24,11 @@ export function Button(container, icon, id) {
   });
   btn.addEventListener("mouseleave", function () {
     UpdateStyle(btn, ButtonStyle.static);
+  });
+
+  btn.addEventListener("resize", function () {
+    btn.style.height = `${getParentDimensions(container - 25)}px`;
+    btn.style.width = `${getParentDimensions(container - 25)}px`;
   });
 
   return btn;

@@ -241,11 +241,11 @@ export function Sidebar() {
     toggle.addEventListener("click", function () {
       if (toggleOpen === false) {
         toggle.style.transform = "rotate(0deg)";
-        panel.style.opacity = "1";
+        panel.style.left = "min(10%, 80px)";
         updatePanelState();
       } else {
         toggle.style.transform = "rotate(-45deg)";
-        panel.style.opacity = "0";
+        panel.style.left = "-30%";
         updatePanelState();
       }
     });
@@ -292,4 +292,18 @@ export function FloatingTab() {
     wrapper: wrapper,
     test: "Test",
   };
+}
+
+export function Header() {
+  let header, headerStyle;
+  headerStyle = {
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "40px",
+    backgroundColor: neutralColors.lightBlack75,
+  };
+  header = CreateDiv("header", headerStyle);
+  ui.append(header);
 }

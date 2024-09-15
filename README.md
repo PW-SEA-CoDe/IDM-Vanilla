@@ -12,3 +12,10 @@ A companion repo for Interactive Design Models, using Vanilla Javascript and Thr
   - Basic Three.js scene setup
   - Basic Rhino Model loading functions
   - (POTENTIAL) Example project metrics to load (ideally this is pulled directly from model on load)
+
+### To-Do's
+
+- Light / Dark mode toggle
+- Unload hidden assets
+- ✅ Buttons update on screen resize
+- Move container/component styles to respective files (i.e. ComponentStyle.js, ContainerStyles.js)

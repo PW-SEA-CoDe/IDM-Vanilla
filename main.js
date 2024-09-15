@@ -1,4 +1,4 @@
-import { Sidebar } from "./src/ui/Containers";
+import { Header, Sidebar } from "./src/ui/Containers";
 import { Button } from "./src/ui/Components";
 
 //Wrap all UI elements in dict to be called in model to avoid document.getElement loop
@@ -11,6 +11,7 @@ export function UIElements() {
   let ui = document.getElementById("ui");
 
   elements.sb = Sidebar();
+  //elements.header = Header();
   elements.buttons = {
     layers: Button(
       elements.sb.menu.body,
@@ -45,6 +46,7 @@ export function UIElements() {
     return activeLink;
   }
   let activeButton = ActiveButton();
+  console.log(activeButton);
 
   console.log(elements);
   console.log(elements.buttons);
