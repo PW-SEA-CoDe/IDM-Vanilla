@@ -74,7 +74,7 @@ export function Taskbar() {
   const div = CreateDiv("taskbar", style);
   ui.append(div);
 
-  let button1 = Button("layers", `url("../assets/icons/Layers.png")`);
+  let button1 = Button("LAYERS", `url("../assets/icons"LAYERS.png")`);
   let button2 = Button("cameras", `url("../assets/icons/Cameras.png")`);
   let button3 = Button("groups", `url("../assets/icons/Groups.png")`);
   let button4 = Button("metrics", `url("../assets/icons/Metrics.png")`);
@@ -203,7 +203,7 @@ export function Sidebar() {
       icon = CreateDiv("panel-head-icon", SidebarStyle.panelHeadIcon);
       wrapper.append(icon);
       title = CreateDiv("panel-head-title", SidebarStyle.panelHeadTitle);
-      title.innerText = "Layers";
+      title.innerText = "LAYERS";
       wrapper.append(title);
       return {
         icon: icon,
@@ -227,7 +227,7 @@ export function Sidebar() {
       width: `${parentDim - 10}px`,
     };
     let toggle = CreateDiv("sidebar-panel-toggle", SidebarStyle.toggle);
-    let toggleOpen = false;
+    let toggleOpen = true;
     UpdateStyle(toggle, adjustedStyle);
     toggle.innerText = "✕";
     targ.append(toggle);

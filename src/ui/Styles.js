@@ -110,6 +110,7 @@ export let SidebarStyle = {
     top: "0",
     backgroundColor: neutralColors.lightBlack75,
     boxShadow: `0px 0px 10px ${neutralColors.lightBlack50}`,
+    borderRadius: "0px 10px 10px 0px",
   },
   header: {
     height: "5%",
@@ -137,14 +138,15 @@ export let SidebarStyle = {
     alignItems: "center",
     justifyContent: "start",
     width: "30%",
-    height: "100%",
+    height: "98%",
     left: "min(10%, 80px)",
-    top: "0",
+    top: "1%",
     padding: "5px",
     backgroundColor: neutralColors.lightBlack50,
     opacity: "1",
     transition: "left 0.5s",
     transitionTimingFunction: "ease",
+    borderRadius: "0px 10px 10px 0px",
   },
   panelHeader: {
     height: "5%",
@@ -166,10 +168,10 @@ export let SidebarStyle = {
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "10px",
-    backgroundColor: neutralColors.offWhite25,
+    backgroundColor: neutralColors.lightBlack75,
   },
   panelFooter: {
-    height: "10%",
+    height: "0%",
     width: "100%",
     marginTop: "5px",
     display: "flex",
@@ -215,7 +217,7 @@ export let SidebarStyle = {
     backgroundColor: neutralColors.darkGray75,
     color: neutralColors.offWhite,
     fontSize: "16px",
-    transform: "rotate(-45deg)",
+    transform: "rotate(0deg)",
     transition: "transform 0.5s",
     transitionTimingFunction: "ease",
   },
@@ -257,50 +259,139 @@ export let LayerTableStyle = {
   layerHiddenStyle: {},
 };
 
-export let CameraControlsStyle = {
+export let SceneControlsStyle = {
+  //Overall items
   wrapper: {
-    pointerEvents: "all",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "start",
-    justifyContent: "center",
-    width: "100%",
-    height: "100%",
-    padding: "5px",
+    wrapper: {
+      width: "100%",
+      height: "100%",
+      padding: "0px",
+    },
   },
-  wrapperHeader: {
-    height: "5%",
-    width: "100%",
-    backgroundColor: neutralColors.white,
+  //Sun Controls
+  SunControls: {
+    wrapper: {
+      height: "auto",
+      width: "100%",
+      padding: "5px",
+      //backgroundColor: neutralColors.darkGray25,
+    },
+    title: {
+      width: "100%",
+      height: "auto",
+      padding: "5px",
+      color: neutralColors.offWhite,
+      fontWeight: "600",
+    },
+    body: {
+      width: "100%",
+      height: "auto",
+      padding: "5px",
+      borderRadius: "10px",
+      padding: "10px",
+      backgroundColor: neutralColors.lightBlack25,
+    },
+    toDWrapper: {
+      pointerEvents: "all",
+      width: "100%",
+      height: "100%",
+      color: neutralColors.offWhite,
+    },
+    toYWrapper: {
+      pointerEvents: "all",
+      width: "100%",
+      height: "100%",
+      color: neutralColors.offWhite,
+    },
+    toDSlider: {
+      height: "auto",
+      marginTop: "10%",
+      marginBottom: "10%",
+    },
+    toYSlider: {
+      height: "auto",
+      marginTop: "10%",
+      marginBottom: "10%",
+    },
   },
-  wrapperBody: {
-    height: "100%",
-    width: "100%",
-    backgroundColor: neutralColors.white,
+  //Camera Controls
+  CameraControls: {
+    wrapper: {
+      height: "auto",
+      width: "100%",
+      padding: "5px",
+      //backgroundColor: neutralColors.darkGray25,
+    },
+    title: {
+      width: "100%",
+      height: "auto",
+      padding: "5px",
+      color: neutralColors.offWhite,
+      fontWeight: "600",
+    },
+    body: {
+      width: "100%",
+      height: "auto",
+      padding: "5px",
+      borderRadius: "10px",
+      padding: "10px",
+      backgroundColor: neutralColors.lightBlack25,
+    },
+    fovWrapper: {
+      height: "auto",
+      width: "100%",
+      pointerEvents: "all",
+      color: neutralColors.offWhite,
+    },
+    fovSlider: {
+      height: "auto",
+      marginTop: "10%",
+      marginBottom: "10%",
+    },
+    projWrapper: {
+      height: "100%",
+      width: "100%",
+      pointerEvents: "all",
+      color: neutralColors.offWhite,
+    },
+    perspProj: {
+      width: "100%",
+      height: "50%",
+      borderRadius: "8px",
+      marginTop: "5%",
+      marginBottom: "5%",
+      backgroundColor: neutralColors.darkGray,
+    },
+    orthoProj: {
+      width: "100%",
+      height: "100%",
+      borderRadius: "8px",
+      marginTop: "5%",
+      marginBottom: "5%",
+      backgroundColor: neutralColors.darkGray,
+    },
   },
-  wrapperFooter: {
-    height: "5%",
-    width: "100%",
-    backgroundColor: neutralColors.white,
-  },
-  sunPanel: {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "start",
-    backgroundColor: neutralColors.lightBlack50,
-    borderRadius: "10px",
-  },
-  cameraPanel: {
-    width: "100%",
-    height: "50%",
-    backgroundColor: neutralColors.fullBlack,
-    borderRadius: "10px",
-  },
-  positionSlider: {
-    width: "90%",
-    height: "10%",
+  //Imported Views
+  ImportedViews: {
+    wrapper: {
+      height: "100%",
+      width: "100%",
+      //backgroundColor: neutralColors.darkGray25,
+    },
+    title: {
+      width: "100%",
+      height: "auto",
+      padding: "5px",
+      color: neutralColors.offWhite,
+      fontWeight: "600",
+    },
+    body: {
+      width: "100%",
+      height: "auto",
+      padding: "5px",
+      borderRadius: "10px",
+      padding: "10px",
+      backgroundColor: neutralColors.lightBlack25,
+    },
   },
 };

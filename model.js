@@ -9,7 +9,7 @@ import {
 import { handleWindowResize } from "./src/scene/SceneUtils";
 import { HoverColor, PointerHover } from "./src/model/Interaction";
 import { UIElements } from "./main";
-import { CameraControls, LayerTable } from "./src/ui/Components";
+import { LayerTable, SceneControls } from "./src/ui/Components";
 import FetchViewData from "./src/model/LoadViews";
 import PostProcessing from "./src/scene/Postprocessing";
 
@@ -39,7 +39,7 @@ scene.add(
 
 //Models
 let model, views;
-model = await Fetch3DM("assets/models/Design-Model.3dm", false, true);
+model = await Fetch3DM("assets/models/Design-Model.3dm", true, true);
 console.log(model.object);
 model.meshes.forEach((item) => {
   scene.add(item);
@@ -70,14 +70,15 @@ function getActiveMenuButton() {
       if (activeLink === "layers") {
         LayerTable(model.layers, panelBody);
       } else if ((activeLink = "cameras")) {
-        CameraControls(panelBody);
+        SceneControls(panelBody);
       }
     });
   }
 }
 getActiveMenuButton();
 
-LayerTable(model.layers, panelBody);
+//LayerTable(model.layers, panelBody);
+SceneControls(panelBody);
 console.log(model);
 
 //Post-Processing

@@ -19,3 +19,6 @@ A companion repo for Interactive Design Models, using Vanilla Javascript and Thr
 - Unload hidden assets
 - ✅ Buttons update on screen resize
 - Move container/component styles to respective files (i.e. ComponentStyle.js, ContainerStyles.js)
+- Layertable toggling parent also toggles sub layers
+- Parent layers have drop down to hide children layers
+- Sidebar buttons toggle menu open on click, but not when menu is open (only listen to buttons if menuOpen = false)

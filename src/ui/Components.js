@@ -10,11 +10,11 @@
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
 import {
   ButtonStyle,
-  CameraControlsStyle,
+  SceneControlsStyle,
   containerStyles,
   neutralColors,
 } from "./Styles";
-import { contain } from "three/src/extras/TextureUtils.js";
+import { update } from "three/examples/jsm/libs/tween.module.js";
 
 //Functional UI Elements
 export function Button(container, icon, id) {
@@ -183,54 +183,150 @@ export function LayerTable(layers, cont) {
   LayerToggle(layers);
 }
 
-export function CameraControls(container) {
-  let wrapper, wrapContent, sunConPanel, cameraConPanel;
-  wrapper = CreateDiv("controls", CameraControlsStyle.wrapper);
+export function SceneControls(container) {
+  let wrapper;
+  let sunControls, cameraControls, importedViews;
+  wrapper = CreateDiv("scene-controls", SceneControlsStyle.wrapper.wrapper);
+  UpdateStyle(wrapper, containerStyles.flexColumn);
 
-  function WrapperContent() {
-    let header, body, footer;
-    header = CreateDiv("cc-wr-head", CameraControlsStyle.wrapperHeader);
-    UpdateStyle(header, containerStyles.flexColumn);
-    body = CreateDiv("cc-wr-body", CameraControlsStyle.wrapperBody);
+  function SunControls() {
+    let wrapper;
+    let title, body, toDWrapper, toYWrapper, toDSlider, toYSlider;
+    wrapper = CreateDiv(
+      "sc-sun-controls",
+      SceneControlsStyle.SunControls.wrapper
+    );
+    UpdateStyle(wrapper, containerStyles.flexColumn);
+
+    title = CreateDiv("sc-sc-title", SceneControlsStyle.SunControls.title);
+    title.innerText = "Sun";
+    body = CreateDiv("sc-sc-body", SceneControlsStyle.SunControls.body);
     UpdateStyle(body, containerStyles.flexColumn);
-    footer = CreateDiv("cc-wr-foot", CameraControlsStyle.wrapperFooter);
-    UpdateStyle(footer, containerStyles.flexColumn);
-    //wrapper.append(header);
+
+    toDWrapper = CreateDiv(
+      "sc-sc-toD-wrapper",
+      SceneControlsStyle.SunControls.toDWrapper
+    );
+    UpdateStyle(toDWrapper, containerStyles.flexColumn);
+    toDWrapper.innerText = "Time of Day";
+    toDSlider = document.createElement("input");
+    toDSlider.type = "range";
+    UpdateStyle(toDSlider, SceneControlsStyle.SunControls.toDSlider);
+
+    toYWrapper = CreateDiv(
+      "sc-sc-toY-wrapper",
+      SceneControlsStyle.SunControls.toYWrapper
+    );
+    UpdateStyle(toYWrapper, containerStyles.flexColumn);
+    toYWrapper.innerText = "Time of Year";
+    toYSlider = document.createElement("input");
+    toYSlider.type = "range";
+    UpdateStyle(toYSlider, SceneControlsStyle.SunControls.toYSlider);
+
+    wrapper.append(title);
     wrapper.append(body);
-    wrapper.append(footer);
+    body.append(toDWrapper);
+    toDWrapper.append(toDSlider);
+    body.append(toYWrapper);
+    toYWrapper.append(toYSlider);
 
     return {
-      header: header,
-      body: body,
-      footer: footer,
+      wrapper: wrapper,
     };
   }
-  function SunControl() {
-    let panel, position, height, temp;
-    panel = CreateDiv("sun-controls", CameraControlsStyle.sunPanel);
-    position = document.createElement("input");
-    position.type = "range";
-    UpdateStyle(position, CameraControlsStyle.positionSlider);
-    height = document.createElement("input");
-    height.type = "range";
-    UpdateStyle(height, CameraControlsStyle.positionSlider);
-    panel.append(position);
-    panel.append(height);
+
+  function CameraControls() {
+    let wrapper;
+    let title, body, fovWrapper, fovSlider, projWrapper, perspProj, orthoProj;
+    wrapper = CreateDiv(
+      "sc-camera-controls",
+      SceneControlsStyle.CameraControls.wrapper
+    );
+
+    title = CreateDiv("sc-cc-title", SceneControlsStyle.CameraControls.title);
+    title.innerText = "Camera";
+    body = CreateDiv("sc-cc-body", SceneControlsStyle.CameraControls.body);
+    UpdateStyle(body, containerStyles.flexColumn);
+
+    fovWrapper = CreateDiv(
+      "sc-cc-fov-wrapper",
+      SceneControlsStyle.CameraControls.fovWrapper
+    );
+    fovWrapper.innerText = "FOV";
+    UpdateStyle(fovWrapper, containerStyles.flexColumn);
+    fovSlider = document.createElement("input");
+    fovSlider.type = "range";
+    UpdateStyle(fovSlider, SceneControlsStyle.CameraControls.fovSlider);
+
+    projWrapper = CreateDiv(
+      "sc-cc-proj-wrapper",
+      SceneControlsStyle.CameraControls.projWrapper
+    );
+    projWrapper.innerText = "Projection";
+    UpdateStyle(projWrapper, containerStyles.flexColumn);
+    perspProj = CreateDiv(
+      "sc-cc-proj-perspective",
+      SceneControlsStyle.CameraControls.perspProj
+    );
+    perspProj.innerText = "Perspective";
+    UpdateStyle(
+      perspProj,
+      containerStyles.flexColumn,
+      containerStyles.centerColumn
+    );
+    orthoProj = CreateDiv(
+      "sc-cc-proj-orthographic",
+      SceneControlsStyle.CameraControls.orthoProj
+    );
+    orthoProj.innerText = "Orthographic";
+    UpdateStyle(
+      orthoProj,
+      containerStyles.flexColumn,
+      containerStyles.centerColumn
+    );
+
+    wrapper.append(title);
+    wrapper.append(body);
+    body.append(fovWrapper);
+    fovWrapper.append(fovSlider);
+    body.append(projWrapper);
+    projWrapper.append(perspProj);
+    projWrapper.append(orthoProj);
+
     return {
-      panel: panel,
+      wrapper: wrapper,
     };
   }
-  function CameraControl() {
-    let panel;
-    panel = CreateDiv("camera-controls", CameraControlsStyle.cameraPanel);
+
+  function ImportedViews() {
+    let wrapper;
+    let title, body;
+    wrapper = CreateDiv(
+      "sc-imported-views",
+      SceneControlsStyle.ImportedViews.wrapper
+    );
+    title = CreateDiv("sc-iv-title", SceneControlsStyle.ImportedViews.title);
+    title.innerText = "Imported Views";
+    body = CreateDiv("sc-iv-body", SceneControlsStyle.ImportedViews.body);
+    UpdateStyle(body, containerStyles.flexColumn);
+
+    wrapper.append(title);
+    wrapper.append(body);
+
     return {
-      panel: panel,
+      wrapper: wrapper,
     };
   }
-  wrapContent = WrapperContent();
-  cameraConPanel = CameraControl();
-  sunConPanel = SunControl();
-  wrapContent.body.append(sunConPanel.panel);
-  wrapContent.body.append(cameraConPanel.panel);
+
+  sunControls = SunControls();
+  cameraControls = CameraControls();
+  importedViews = ImportedViews();
+
+  wrapper.append(sunControls.wrapper);
+  wrapper.append(cameraControls.wrapper);
+  wrapper.append(importedViews.wrapper);
   container.append(wrapper);
+  return {
+    wrapper: wrapper,
+  };
 }
