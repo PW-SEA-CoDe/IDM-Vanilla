@@ -8,7 +8,12 @@
  * function StackingDiagram should be defined in Graphics.js
  */
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
-import { ButtonStyle, CameraControlsStyle, neutralColors } from "./Styles";
+import {
+  ButtonStyle,
+  CameraControlsStyle,
+  containerStyles,
+  neutralColors,
+} from "./Styles";
 import { contain } from "three/src/extras/TextureUtils.js";
 
 //Functional UI Elements
@@ -179,8 +184,27 @@ export function LayerTable(layers, cont) {
 }
 
 export function CameraControls(container) {
-  let wrapper, sunConPanel, cameraConPanel;
+  let wrapper, wrapContent, sunConPanel, cameraConPanel;
   wrapper = CreateDiv("controls", CameraControlsStyle.wrapper);
+
+  function WrapperContent() {
+    let header, body, footer;
+    header = CreateDiv("cc-wr-head", CameraControlsStyle.wrapperHeader);
+    UpdateStyle(header, containerStyles.flexColumn);
+    body = CreateDiv("cc-wr-body", CameraControlsStyle.wrapperBody);
+    UpdateStyle(body, containerStyles.flexColumn);
+    footer = CreateDiv("cc-wr-foot", CameraControlsStyle.wrapperFooter);
+    UpdateStyle(footer, containerStyles.flexColumn);
+    //wrapper.append(header);
+    wrapper.append(body);
+    wrapper.append(footer);
+
+    return {
+      header: header,
+      body: body,
+      footer: footer,
+    };
+  }
   function SunControl() {
     let panel, position, height, temp;
     panel = CreateDiv("sun-controls", CameraControlsStyle.sunPanel);
@@ -203,9 +227,10 @@ export function CameraControls(container) {
       panel: panel,
     };
   }
+  wrapContent = WrapperContent();
   cameraConPanel = CameraControl();
   sunConPanel = SunControl();
-  wrapper.append(sunConPanel.panel);
-  wrapper.append(cameraConPanel.panel);
+  wrapContent.body.append(sunConPanel.panel);
+  wrapContent.body.append(cameraConPanel.panel);
   container.append(wrapper);
 }

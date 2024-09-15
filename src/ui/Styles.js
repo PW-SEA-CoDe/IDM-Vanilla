@@ -65,16 +65,20 @@ export let neutralColors = {
 
 //Styles
 export let containerStyles = {
-  flexCenterColumn: {
+  flexColumn: {
     display: "flex",
     flexDirection: "column",
+  },
+  flexRow: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  centerColumn: {
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
   },
-  flexCenterRow: {
-    display: "flex",
-    flexDirection: "row",
+  centerRow: {
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
@@ -131,13 +135,13 @@ export let SidebarStyle = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "start",
     width: "30%",
     height: "100%",
-    left: "min(9%, 80px)",
+    left: "min(10%, 80px)",
     top: "0",
     padding: "5px",
-    backgroundColor: neutralColors.darkGray75,
+    backgroundColor: neutralColors.lightBlack50,
     opacity: "1",
     transition: "left 0.5s",
     transitionTimingFunction: "ease",
@@ -153,7 +157,7 @@ export let SidebarStyle = {
     backgroundColor: "none",
   },
   panelBody: {
-    height: "70%",
+    height: "100%",
     width: "100%",
     marginTop: "5px",
     padding: "10px",
@@ -165,7 +169,7 @@ export let SidebarStyle = {
     backgroundColor: neutralColors.offWhite25,
   },
   panelFooter: {
-    height: "25%",
+    height: "10%",
     width: "100%",
     marginTop: "5px",
     display: "flex",
@@ -262,7 +266,22 @@ export let CameraControlsStyle = {
     justifyContent: "center",
     width: "100%",
     height: "100%",
-    padding: "10px",
+    padding: "5px",
+  },
+  wrapperHeader: {
+    height: "5%",
+    width: "100%",
+    backgroundColor: neutralColors.white,
+  },
+  wrapperBody: {
+    height: "100%",
+    width: "100%",
+    backgroundColor: neutralColors.white,
+  },
+  wrapperFooter: {
+    height: "5%",
+    width: "100%",
+    backgroundColor: neutralColors.white,
   },
   sunPanel: {
     width: "100%",
