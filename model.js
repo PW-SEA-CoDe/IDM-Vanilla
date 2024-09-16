@@ -71,8 +71,12 @@ function getActiveMenuButton() {
       console.log(activeLink);
       if (activeLink === "layers") {
         LayerTable(model.layers, panelBody);
-      } else if ((activeLink = "cameras")) {
+      } else if (activeLink === "scene") {
         SceneControls(panelBody);
+      } else if (activeLink === "edit") {
+        //
+      } else if (activeLink === "metrics") {
+        //
       }
     });
   }

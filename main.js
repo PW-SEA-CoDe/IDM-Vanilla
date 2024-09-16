@@ -18,12 +18,12 @@ export function UIElements() {
       "/assets/icons/Layers.png",
       "layer-button"
     ),
-    cameras: Button(
+    scene: Button(
       elements.sb.menu.body,
       "/assets/icons/Cameras.png",
       "camera-button"
     ),
-    groups: Button(
+    edit: Button(
       elements.sb.menu.body,
       "/assets/icons/Groups.png",
       "group-button"

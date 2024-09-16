@@ -45,28 +45,66 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
           z: 0,
         };
 
-        // Child Functions
-        object.children.forEach((child) => {
-          //Do this for all children
-          geometry.push(child);
+        /**
+         *
+         */
+        function getModelGeometry() {
+          let geometry, meshes, lines, points;
+          geometry = [];
+          meshes = [];
+          lines = [];
+          points = [];
+          object.children.forEach((child) => {
+            geometry.push(child);
 
-          //Do this for Mesh children
-          if (child.type === "Mesh") {
-            meshs.push(child);
-            child.castShadow = castShadow;
-            child.receiveShadow = receiveShadow;
-            DefCustomMaterial(child);
-          }
-          //Do this for Line Children
-          if (child.type === "Line") {
-            lines.push(child);
-          }
-        });
+            if (child.type === "Mesh") {
+              //
+              child.castShadow = castShadow;
+              child.receiveShadow = receiveShadow;
+              DefCustomMaterial(child);
+              meshes.push(child);
+            } else if (child.type === "Line") {
+              //
+              child.castShadow = false;
+              child.receiveShadow = false;
+              lines.push(child);
+            } else if (child.type === "Point") {
+              //
+              child.castShadow = false;
+              child.receiveShadow = false;
+              points.push(child);
+            }
+            //Other child types
+            //pointcloud
+            //textdot
+            //subd
+            //lights
+          });
 
+          return {
+            geometry: geometry,
+            meshes: meshes,
+            lines: lines,
+            points: points,
+          };
+        }
+        let objGeo = getModelGeometry();
+        geometry = objGeo.geometry;
+        meshs = objGeo.meshes;
+        lines = objGeo.lines;
+
+        /**
+         *
+         * @param {*} child
+         */
         function DefCustomMaterial(child) {
           let origMaterial = child.material.clone();
+          //console.log(origMaterial);
           let newMaterial = new THREE.MeshStandardMaterial();
           newMaterial.color = origMaterial.color.clone();
+          newMaterial.metalness = origMaterial.metalness;
+          newMaterial.roughness = origMaterial.roughness;
+          newMaterial.opacity = origMaterial.opacity;
           let newCopyMaterial = newMaterial.clone();
           newCopyMaterial.uuid = child.uuid;
           ogMats.push(newCopyMaterial);
@@ -74,6 +112,9 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
           child.material = newMaterial;
         }
 
+        /**
+         *
+         */
         function GetAverageCenter() {
           object.children.forEach((child) => {
             child.geometry.computeBoundingSphere();
@@ -87,6 +128,10 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
         }
         GetAverageCenter();
 
+        /**
+         *
+         * @returns
+         */
         function GetLayerTable() {
           let layerObjects, layerObjs, maxLayerDepth, layerTree, layerPaths;
 

@@ -33,7 +33,7 @@ export function PointerHover(event, target, camera) {
       visTargets.push(item);
     }
   });
-  console.log(visTargets);
+  //console.log(visTargets);
 
   intersected = raycaster.intersectObjects(target, true);
   if (intersected.length > 0) {
@@ -49,7 +49,7 @@ export function PointerHover(event, target, camera) {
 export function HoverColor(targets, materials, intersected) {
   if (intersected !== null) {
     //Execute if intersecting an object
-    let hoverColor = new THREE.Color(0.35, 0.65, 1);
+    let hoverColor = new THREE.Color("rgb(255,100,0)");
     intersected.material.color.set(hoverColor);
 
     //Loop targets to do stuff to items that arent the intersected item
