@@ -10,11 +10,11 @@
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
 import {
   ButtonStyle,
+  LayerTableStyle,
   SceneControlsStyle,
   containerStyles,
   neutralColors,
 } from "./Styles";
-import { update } from "three/examples/jsm/libs/tween.module.js";
 
 //Functional UI Elements
 export function Button(container, icon, id) {
@@ -43,48 +43,11 @@ export function LayerTable(layers, cont) {
   const container = cont;
 
   function ConstructTable() {
-    const wrapperStyle = {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
+    let wrapper;
+    wrapper = CreateDiv("layer-list", LayerTableStyle.wrapper);
 
-      color: "white",
-      fontSize: "12px",
-      fontWeight: "200",
-    };
-    const wrapper = CreateDiv("layer-list", wrapperStyle);
-
-    const layerStyle = {
-      width: "100%",
-      height: "5%",
-      marginTop: "2%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      pointerEvents: "all",
-
-      borderRadius: "5px",
-
-      backgroundColor: neutralColors.darkGray,
-      color: neutralColors.offWhite,
-      boxShadow: "0px 2px 2px rgb(50,50,50)",
-    };
     layers.forEach((layer) => {
-      const activeStyle = {
-        backgroundColor: neutralColors.darkGray75,
-        color: neutralColors.offWhite,
-        boxShadow: "2px 1px 0px rgba(50, 50, 50, 0.9)",
-        fontWeight: "200",
-        boxShadow: "0px 2px 2px rgb(50,50,50)",
-      };
-      const unactiveStyle = {
-        backgroundColor: neutralColors.offWhite50,
-        color: neutralColors.offWhite,
-        fontWeight: "100",
-        boxShadow: "0px 0px 0px rgb(50,50,50)",
-      };
-      const div = CreateDiv(`${layer.name}`, layerStyle);
+      const div = CreateDiv(`${layer.name}`, LayerTableStyle.layerBaseStyle);
       div.innerText = layer.name;
       wrapper.append(div);
 
@@ -93,26 +56,32 @@ export function LayerTable(layers, cont) {
           marginLeft: "10%",
           width: "90%",
         };
-        const div = CreateDiv(`${sublayer.name}`, layerStyle);
         const tertLayerStyle = {
           marginLeft: "20%",
           width: "80%",
         };
+        const div = CreateDiv(
+          `${sublayer.name}`,
+          LayerTableStyle.layerBaseStyle
+        );
         UpdateStyle(div, subLayerStyle);
         div.innerText = sublayer.name;
 
         if (sublayer.object.visible === true) {
           console.log(true);
-          UpdateStyle(div, activeStyle);
+          UpdateStyle(div, LayerTableStyle.layerActiveStyle);
         } else if (sublayer.object.visible === false) {
           console.log(false);
-          UpdateStyle(div, unactiveStyle);
+          UpdateStyle(div, LayerTableStyle.layerHiddenStyle);
         }
 
         wrapper.append(div);
 
         sublayer.sublayers.forEach((tertlayer) => {
-          const div = CreateDiv(`${tertlayer.name}`, layerStyle);
+          const div = CreateDiv(
+            `${tertlayer.name}`,
+            LayerTableStyle.layerBaseStyle
+          );
           UpdateStyle(div, tertLayerStyle);
           div.innerText = tertlayer.name;
           console.log(tertlayer.object);
@@ -136,18 +105,6 @@ export function LayerTable(layers, cont) {
   ConstructTable();
 
   function LayerToggle(layers) {
-    const activeStyle = {
-      backgroundColor: neutralColors.darkGray,
-      color: neutralColors.offWhite,
-      fontWeight: "200",
-      boxShadow: "0px 2px 2px rgb(50,50,50)",
-    };
-    const unactiveStyle = {
-      backgroundColor: neutralColors.offWhite50,
-      color: neutralColors.offWhite,
-      fontWeight: "100",
-      boxShadow: "0px 0px 0px rgb(50,50,50)",
-    };
     const layerTable = document.getElementById("layer-list");
     let uiLayers = layerTable.querySelectorAll("div");
     uiLayers.forEach((child) => {
@@ -173,9 +130,9 @@ export function LayerTable(layers, cont) {
         });
         target.object.visible = !target.object.visible;
         if (target.object.visible === true) {
-          UpdateStyle(button, activeStyle);
+          UpdateStyle(button, LayerTableStyle.layerActiveStyle);
         } else if (target.object.visible === false) {
-          UpdateStyle(button, unactiveStyle);
+          UpdateStyle(button, LayerTableStyle.layerHiddenStyle);
         }
       }
     }

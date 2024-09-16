@@ -65,7 +65,9 @@ function getActiveMenuButton() {
       panelBody.innerHTML = "";
       let activeLink = key;
       uiElements.sb.panel.headerTitle.innerText =
-        activeLink.toLocaleUpperCase();
+        activeLink.charAt(0).toLocaleUpperCase() +
+        activeLink.slice(1).toLowerCase();
+      activeLink.toLocaleLowerCase();
       console.log(activeLink);
       if (activeLink === "layers") {
         LayerTable(model.layers, panelBody);
@@ -77,8 +79,8 @@ function getActiveMenuButton() {
 }
 getActiveMenuButton();
 
-//LayerTable(model.layers, panelBody);
-SceneControls(panelBody);
+LayerTable(model.layers, panelBody);
+//SceneControls(panelBody);
 console.log(model);
 
 //Post-Processing

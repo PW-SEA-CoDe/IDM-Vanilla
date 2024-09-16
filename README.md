@@ -22,3 +22,4 @@ A companion repo for Interactive Design Models, using Vanilla Javascript and Thr
 - Layertable toggling parent also toggles sub layers
 - Parent layers have drop down to hide children layers
 - Sidebar buttons toggle menu open on click, but not when menu is open (only listen to buttons if menuOpen = false)
+- EDIT Button, allow user to click on geometry and change material, edit name, etc

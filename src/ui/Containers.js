@@ -203,7 +203,7 @@ export function Sidebar() {
       icon = CreateDiv("panel-head-icon", SidebarStyle.panelHeadIcon);
       wrapper.append(icon);
       title = CreateDiv("panel-head-title", SidebarStyle.panelHeadTitle);
-      title.innerText = "LAYERS";
+      title.innerText = "Layers";
       wrapper.append(title);
       return {
         icon: icon,
