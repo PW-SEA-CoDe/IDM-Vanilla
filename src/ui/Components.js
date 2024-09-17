@@ -140,7 +140,7 @@ export function LayerTable(layers, cont) {
   LayerToggle(layers);
 }
 
-export function SceneControls(container) {
+export function SceneControls(container, light, camera) {
   let wrapper;
   let sunControls, cameraControls, importedViews;
   wrapper = CreateDiv("scene-controls", SceneControlsStyle.wrapper.wrapper);
@@ -168,6 +168,9 @@ export function SceneControls(container) {
     toDWrapper.innerText = "Time of Day";
     toDSlider = document.createElement("input");
     toDSlider.type = "range";
+    toDSlider.min = "1";
+    toDSlider.value = "180";
+    toDSlider.max = "360";
     UpdateStyle(toDSlider, SceneControlsStyle.SunControls.toDSlider);
 
     toYWrapper = CreateDiv(
@@ -178,6 +181,9 @@ export function SceneControls(container) {
     toYWrapper.innerText = "Time of Year";
     toYSlider = document.createElement("input");
     toYSlider.type = "range";
+    toYSlider.min = "500";
+    toYSlider.value = "750";
+    toYSlider.max = "1200";
     UpdateStyle(toYSlider, SceneControlsStyle.SunControls.toYSlider);
 
     wrapper.append(title);
@@ -187,8 +193,26 @@ export function SceneControls(container) {
     body.append(toYWrapper);
     toYWrapper.append(toYSlider);
 
+    toDSlider.oninput = function () {
+      let radius, angleRad, x, y;
+      radius = 500;
+      angleRad = (this.value * Math.PI) / 180;
+      x = radius * Math.sin(angleRad);
+      y = radius * Math.cos(angleRad);
+      light.position.x = x;
+      light.position.y = y;
+      console.log(light.position);
+      console.log(this.value);
+    };
+
+    toYSlider.oninput = function () {
+      light.position.z = parseInt(this.value);
+    };
+
     return {
       wrapper: wrapper,
+      timeSlider: toDSlider,
+      dateSlider: toYSlider,
     };
   }
 
@@ -213,6 +237,9 @@ export function SceneControls(container) {
     UpdateStyle(fovWrapper, containerStyles.flexColumn);
     fovSlider = document.createElement("input");
     fovSlider.type = "range";
+    fovSlider.min = "5";
+    fovSlider.max = "120";
+    fovSlider.value = "50";
     UpdateStyle(fovSlider, SceneControlsStyle.CameraControls.fovSlider);
 
     projWrapper = CreateDiv(
@@ -241,6 +268,13 @@ export function SceneControls(container) {
       containerStyles.flexColumn,
       containerStyles.centerColumn
     );
+
+    fovSlider.oninput = function () {
+      console.log(this.value);
+      console.log(camera);
+      camera.fov = parseInt(this.value);
+      camera.updateProjectionMatrix();
+    };
 
     wrapper.append(title);
     wrapper.append(body);
