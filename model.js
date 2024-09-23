@@ -1,3 +1,8 @@
+/**
+ * This script is the main branch where components that interact with the model should be located.
+ * This includes all components required to create a Three scene, as well as any data, ui components
+ * or other elements which define interation with the model/canvas/
+ */
 //Local Modules
 import SceneInit from "./src/scene/SceneInit";
 import Fetch3DM from "./src/model/Load3dm";
@@ -7,11 +12,16 @@ import {
   HemisphereLight,
 } from "./src/scene/Lighting";
 import { handleWindowResize } from "./src/scene/SceneUtils";
-import { HoverColor, PointerHover } from "./src/model/Interaction";
+import {
+  ClickedColor,
+  HoverColor,
+  PointerHover,
+} from "./src/model/Interaction";
 import { UIElements } from "./main";
 import { LayerTable, SceneControls } from "./src/ui/Components";
 import FetchViewData from "./src/model/LoadViews";
 import PostProcessing from "./src/scene/Postprocessing";
+import EditTab from "./src/ui/EditTab";
 
 //Scene
 const { scene, sceneContainer, renderer, camera, controls } = SceneInit();
@@ -74,7 +84,7 @@ function getActiveMenuButton() {
       } else if (activeLink === "scene") {
         SceneControls(panelBody, fourLight.lightA, camera);
       } else if (activeLink === "edit") {
-        //
+        EditTab(panelBody);
       } else if (activeLink === "metrics") {
         //
       }
@@ -95,6 +105,11 @@ window.addEventListener("mousemove", function (event) {
   let intersected = PointerHover(event, model.meshes, camera).object;
   HoverColor(model.meshes, model.ogMaterials, intersected);
   //console.log(intersected);
+});
+window.addEventListener("click", function (event) {
+  let clicked = PointerHover(event, model.meshes, camera).object;
+  console.log(clicked);
+  ClickedColor(model.meshes, model.ogMaterials, clicked);
 });
 
 //Utils

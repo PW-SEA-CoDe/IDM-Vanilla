@@ -73,3 +73,10 @@ export function HoverColor(targets, materials, intersected) {
     });
   }
 }
+
+export function ClickedColor(targets, materials, clicked) {
+  if (clicked !== null) {
+    let clickedColor = new THREE.Color("rgb(100,255,0)");
+    clicked.material.color.set(clickedColor);
+  }
+}

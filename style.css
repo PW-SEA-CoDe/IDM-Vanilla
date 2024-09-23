@@ -29,6 +29,7 @@ body {
     margin: 0;
 
     background-color: rgb(49, 49, 45);
+    background: linear-gradient(180deg, rgb(49,49,45), rgb(39, 39, 35));
 }
 
 main {

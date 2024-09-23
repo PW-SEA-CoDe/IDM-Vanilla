@@ -16,10 +16,25 @@ A companion repo for Interactive Design Models, using Vanilla Javascript and Thr
 ### To-Do's
 
 - Light / Dark mode toggle
-- Unload hidden assets
+- Unload hidden assets on layer click
 - ✅ Buttons update on screen resize
 - Move container/component styles to respective files (i.e. ComponentStyle.js, ContainerStyles.js)
 - Layertable toggling parent also toggles sub layers
 - Parent layers have drop down to hide children layers
 - Sidebar buttons toggle menu open on click, but not when menu is open (only listen to buttons if menuOpen = false)
 - EDIT Button, allow user to click on geometry and change material, edit name, etc
+
+- Layer Table
+
+  - Unload assets when layer is hidden (instead of toggle visibility)
+  - Toggling parent layer also controls child layers
+
+- Scene Controls
+
+  - Track updated FOV and sun position and pass into function
+  - Perspective / Ortho camera switching
+  - Imported Views from Rhino
+
+- Edit
+
+- Metrics
