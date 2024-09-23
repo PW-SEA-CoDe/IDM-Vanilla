@@ -1,6 +1,22 @@
 # IDM-Vanilla
 
-A companion repo for Interactive Design Models, using Vanilla Javascript and Three.
+> This project is part of the 2024 Perkins&Will 'Innovation Incubator' research grant. The codebase is intended for public use, and while currently under heavy development, we welcome contributions once the research grant has concluded (~ Q4 2024).
+
+### Overview
+
+This repository is a companion to [Interactive Design Models](https://github.com/PW-SEA-CoDe/InteractiveDesignModels) and focuses on Vanilla Javascript and Three.js to create a templated project which allows designers to load and interact with a Rhino '.3dm' file in a lightweight standalone web application.
+
+As Three's documentation is focused around implementation in JS, this repo acts as the foundation upon which our research and testing as part of the 2024 Perkins&Will 'Innovation Incubator' has taken place. Additional research has also been done using React-Three-Fiber(R3F) and can be found in a sibling repo here: [IDM - R3F](https://github.com/PW-SEA-CoDe/IDM-R3F)
+
+### Scope
+
+This project aims to explore the potential for users to interact with 3d models on the web using Three. Our initial goal is to better understand the core functionality that Three provides and develope best practices around model loading, site structure and model interactivity. In service of that goal, the project currently is focused around research and testing of the following components:
+
+- Loading .3dm files and accessing model data (layers, materials, attributes, etc.)
+- Creation of basic Three.js scene and critical components (lighting, camera, controls, etc.)
+- Interaction with model components (i.e. click or hover over model geometry)
+- Interaction between UI elements on model components
+- Basic styling of UI and models
 
 ### Notes
 
