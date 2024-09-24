@@ -30,6 +30,7 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
         //Overall model functions
         object = object;
         object.up = new THREE.Vector3(0, 0, 1);
+        console.log(object);
 
         //Model children exports
         let geometry = [];
@@ -112,7 +113,7 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
         }
 
         /**
-         *
+         * Calculates the average center of each child object in the loaded model.
          */
         function GetAverageCenter() {
           object.children.forEach((child) => {
@@ -128,7 +129,81 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
         GetAverageCenter();
 
         /**
-         *
+         * !!!IN PROGRESS!!! - Update structure of app to import new layer structure (Layer table UI primarily)
+         * @returns
+         */
+        function revGetLayerTable() {
+          let layerObjects, layerTree;
+          layerObjects = object.userData.layers;
+
+          class Layer {
+            constructor(name, fullPath, index, object) {
+              this.name = name;
+              this.fullPath = fullPath;
+              this.index = index;
+              this.object = object;
+            }
+            parent = null;
+            depth = null;
+            geometry = [];
+          }
+
+          let layerList, layerFullPaths, maxDepth, layerDepths;
+          layerList = [];
+          layerFullPaths = [];
+          maxDepth = 0;
+          layerDepths = [];
+
+          layerObjects.forEach((layer) => {
+            let fullPath = layer.fullPath;
+            layerFullPaths.push(fullPath);
+
+            let depth = layer.fullPath.split("::").length;
+            if (depth > maxDepth) {
+              maxDepth = depth;
+            }
+          });
+
+          for (let i = 1; i < maxDepth + 1; i++) {
+            let nDepthLayers = [];
+            layerObjects.forEach((layer, k) => {
+              if (layer.fullPath.split("::").length === i) {
+                let l = new Layer(layer.name, layer.fullPath, k, layer);
+                l.depth = i;
+                console.log(l);
+                nDepthLayers.push(l);
+              }
+            });
+            layerDepths.push(nDepthLayers);
+          }
+
+          for (let i = 0; i < layerDepths.length; i++) {
+            //First level
+            if (i === 0) {
+              //
+            } else {
+              let currentDepth = layerDepths[i];
+              let parentDepth = layerDepths[i - 1];
+              currentDepth.forEach((layer) => {
+                parentDepth.forEach((parent) => {
+                  if (layer.fullPath.includes(parent.fullPath)) {
+                    layer.parent = parent;
+                  }
+                });
+              });
+            }
+          }
+          console.log(layerDepths);
+
+          return {
+            layerDepths: layerDepths,
+            layerTree: layerTree,
+          };
+        }
+        const testLayerTree = revGetLayerTable();
+
+        /**
+         * Defines the layer table in tree form, nesting sub-layers under parent layers (sort of) recursively
          * @returns
          */
         function GetLayerTable() {
