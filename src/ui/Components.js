@@ -39,8 +39,32 @@ export function Button(container, icon, id) {
   return btn;
 }
 
-export function LayerTable(layers, cont) {
+export function LayerTable(layers, revLayers, cont) {
   const container = cont;
+  console.log(revLayers);
+
+  function revConstructTable() {
+    // iterate through each set of revLayers, adds component for each
+    // set width and margin based on layer.depth
+    // ISSUE, change layer structure to iterate through full layer tree before
+    // moving to next root layer
+
+    let wrapper;
+    wrapper = CreateDiv("layer-list-test", LayerTableStyle.wrapper);
+
+    revLayers.forEach((depth, index) => {
+      depth.forEach((layer) => {
+        console.log(index);
+        let div = CreateDiv(`${layer.name}`, LayerTableStyle.layerBaseStyle);
+        div.innerText = layer.name;
+        wrapper.append(div);
+        div.style.marginLeft = `${10 * index}%`;
+        div.style.width = `${100 - 10 * index}%`;
+      });
+    });
+    container.append(wrapper);
+  }
+  revConstructTable();
 
   function ConstructTable() {
     let wrapper;

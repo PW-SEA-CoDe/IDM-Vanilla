@@ -93,7 +93,7 @@ function getActiveMenuButton() {
 }
 getActiveMenuButton();
 
-LayerTable(model.layers, panelBody);
+LayerTable(model.layers, model.revLayers, panelBody);
 //SceneControls(panelBody);
 console.log(model);
 

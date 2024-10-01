@@ -303,6 +303,7 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
           geometry: geometry,
           groups: groups,
           layers: layerTree,
+          revLayers: testLayerTree.layerDepths,
           lines: lines,
           meshes: meshs,
           ogMaterials: ogMats,
