@@ -26,9 +26,9 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
 
     loader.load(
       url,
-      function (object) {
+      function (obj) {
         //Overall model functions
-        object = object;
+        object = obj;
         object.up = new THREE.Vector3(0, 0, 1);
         console.log(object);
 
@@ -128,13 +128,8 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
         }
         GetAverageCenter();
 
-        /**
-         * !!!IN PROGRESS!!! - Update structure of app to import new layer structure (Layer table UI primarily)
-         * @returns
-         */
-        function revGetLayerTable() {
-          let layerObjects, layerTree;
-          layerObjects = object.userData.layers;
+        function getLayerTable() {
+          const layerObjects = object.userData.layers;
 
           class Layer {
             constructor(name, fullPath, index, object) {
@@ -148,11 +143,8 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
             geometry = [];
           }
 
-          let layerList, layerFullPaths, maxDepth, layerDepths;
-          layerList = [];
-          layerFullPaths = [];
-          maxDepth = 0;
-          layerDepths = [];
+          let layerFullPaths = [];
+          let maxDepth = 0;
 
           layerObjects.forEach((layer) => {
             let fullPath = layer.fullPath;
@@ -164,13 +156,14 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
             }
           });
 
+          let layerDepths = [];
+
           for (let i = 1; i < maxDepth + 1; i++) {
             let nDepthLayers = [];
             layerObjects.forEach((layer, k) => {
               if (layer.fullPath.split("::").length === i) {
                 let l = new Layer(layer.name, layer.fullPath, k, layer);
                 l.depth = i;
-                console.log(l);
                 nDepthLayers.push(l);
               }
             });
@@ -193,20 +186,38 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
               });
             }
           }
-          console.log(layerDepths);
 
+          let layerList = [];
+          layerDepths.forEach((depth, index) => {
+            layerList = layerList.concat(depth);
+          });
+
+          let orderedLayerList = [];
+          layerDepths[0].forEach((layer) => {
+            let name = layer.fullPath;
+            layerList.forEach((lay) => {
+              if (lay.fullPath.includes(name)) {
+                orderedLayerList.push(lay);
+              }
+            });
+          });
+
+          orderedLayerList.forEach((layer) => {
+            object.children.forEach((child) => {
+              if (child.userData.attributes.layerIndex === layer.index) {
+                layer.geometry.push(child);
+              }
+            });
+          });
+
+          console.log(orderedLayerList);
           return {
-            layerDepths: layerDepths,
-            layerTree: layerTree,
+            layerDepths: orderedLayerList,
           };
         }
-        const testLayerTree = revGetLayerTable();
+        const layerList = getLayerTable();
 
-        /**
-         * Defines the layer table in tree form, nesting sub-layers under parent layers (sort of) recursively
-         * @returns
-         */
-        function GetLayerTable() {
+        function OldGetLayerTable() {
           let layerObjects, layerObjs, maxLayerDepth, layerTree, layerPaths;
 
           layerObjects = object.userData.layers;
@@ -268,7 +279,7 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
           }
           return layerTree;
         }
-        const layerTree = GetLayerTable();
+        //const layerTree = OldGetLayerTable();
 
         function GetGroups() {
           const modelGroups = object.userData.groups;
@@ -302,8 +313,7 @@ export default async function Fetch3DM(url, castShadow, receiveShadow) {
           averageCenter: avgCenter,
           geometry: geometry,
           groups: groups,
-          layers: layerTree,
-          revLayers: testLayerTree.layerDepths,
+          layerList: layerList.layerDepths,
           lines: lines,
           meshes: meshs,
           ogMaterials: ogMats,

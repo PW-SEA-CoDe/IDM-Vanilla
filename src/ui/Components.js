@@ -39,108 +39,38 @@ export function Button(container, icon, id) {
   return btn;
 }
 
-export function LayerTable(layers, revLayers, cont) {
+export function LayerTable(layers, cont) {
   const container = cont;
-  console.log(revLayers);
 
-  function revConstructTable() {
-    // iterate through each set of revLayers, adds component for each
-    // set width and margin based on layer.depth
-    // ISSUE, change layer structure to iterate through full layer tree before
-    // moving to next root layer
-
+  function constructLayerTable() {
     let wrapper;
     wrapper = CreateDiv("layer-list-test", LayerTableStyle.wrapper);
 
-    revLayers.forEach((depth, index) => {
-      depth.forEach((layer) => {
-        console.log(index);
-        let div = CreateDiv(`${layer.name}`, LayerTableStyle.layerBaseStyle);
-        div.innerText = layer.name;
-        wrapper.append(div);
-        div.style.marginLeft = `${10 * index}%`;
-        div.style.width = `${100 - 10 * index}%`;
-      });
-    });
-    container.append(wrapper);
-  }
-  revConstructTable();
-
-  function ConstructTable() {
-    let wrapper;
-    wrapper = CreateDiv("layer-list", LayerTableStyle.wrapper);
-
     layers.forEach((layer) => {
-      const div = CreateDiv(`${layer.name}`, LayerTableStyle.layerBaseStyle);
+      let div = CreateDiv(`${layer.name}`, LayerTableStyle.layerBaseStyle);
       div.innerText = layer.name;
       wrapper.append(div);
+      div.style.marginLeft = `${10 * (layer.depth - 1)}%`;
+      div.style.width = `${100 - 10 * (layer.depth - 1)}%`;
 
-      layer.sublayers.forEach((sublayer) => {
-        const subLayerStyle = {
-          marginLeft: "10%",
-          width: "90%",
-        };
-        const tertLayerStyle = {
-          marginLeft: "20%",
-          width: "80%",
-        };
-        const div = CreateDiv(
-          `${sublayer.name}`,
-          LayerTableStyle.layerBaseStyle
-        );
-        UpdateStyle(div, subLayerStyle);
-        div.innerText = sublayer.name;
-
-        if (sublayer.object.visible === true) {
-          console.log(true);
-          UpdateStyle(div, LayerTableStyle.layerActiveStyle);
-        } else if (sublayer.object.visible === false) {
-          console.log(false);
-          UpdateStyle(div, LayerTableStyle.layerHiddenStyle);
-        }
-
-        wrapper.append(div);
-
-        sublayer.sublayers.forEach((tertlayer) => {
-          const div = CreateDiv(
-            `${tertlayer.name}`,
-            LayerTableStyle.layerBaseStyle
-          );
-          UpdateStyle(div, tertLayerStyle);
-          div.innerText = tertlayer.name;
-          console.log(tertlayer.object);
-          /*
-  
-            if (tertlayer.object.visible === true) {
-              console.log(true);
-              UpdateStyle(div, activeStyle);
-            } else if (tertlayer.object.visible === false) {
-              console.log(false);
-              UpdateStyle(div, unactiveStyle);
-            }
-              */
-          wrapper.append(div);
-        });
-      });
+      //Update div style if layer is hidden
+      if (layer.object.visible === true) {
+        UpdateStyle(div, LayerTableStyle.layerActiveStyle);
+      } else if (layer.object.visible === false) {
+        UpdateStyle(div, LayerTableStyle.layerHiddenStyle);
+      }
     });
-
     container.append(wrapper);
   }
-  ConstructTable();
+  constructLayerTable();
 
-  function LayerToggle(layers) {
-    const layerTable = document.getElementById("layer-list");
-    let uiLayers = layerTable.querySelectorAll("div");
-    uiLayers.forEach((child) => {
-      child.addEventListener("click", function (event) {
+  function layerToggle() {
+    const layerTable = document.getElementById("layer-list-test");
+    const uiLayers = layerTable.querySelectorAll("div");
+    uiLayers.forEach((div) => {
+      div.addEventListener("click", function (event) {
         layers.forEach((layer) => {
-          Toggle(layer, child);
-          layer.sublayers.forEach((sublayer) => {
-            Toggle(sublayer, child);
-            sublayer.sublayers.forEach((tertLayer) => {
-              Toggle(tertLayer, child);
-            });
-          });
+          Toggle(layer, div);
         });
       });
     });
@@ -149,6 +79,7 @@ export function LayerTable(layers, revLayers, cont) {
       console.log(button.id);
       if (target.name === button.id) {
         console.log(target);
+        //Need to update to provide a live list of visible geometry in scene
         target.geometry.forEach((geometry) => {
           geometry.visible = !geometry.visible;
         });
@@ -161,7 +92,7 @@ export function LayerTable(layers, revLayers, cont) {
       }
     }
   }
-  LayerToggle(layers);
+  layerToggle();
 }
 
 export function SceneControls(container, light, camera) {

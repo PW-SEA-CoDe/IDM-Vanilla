@@ -80,7 +80,7 @@ function getActiveMenuButton() {
       activeLink.toLocaleLowerCase();
       console.log(activeLink);
       if (activeLink === "layers") {
-        LayerTable(model.layers, panelBody);
+        LayerTable(model.layerList, panelBody);
       } else if (activeLink === "scene") {
         SceneControls(panelBody, fourLight.lightA, camera);
       } else if (activeLink === "edit") {
@@ -93,7 +93,7 @@ function getActiveMenuButton() {
 }
 getActiveMenuButton();
 
-LayerTable(model.layers, model.revLayers, panelBody);
+LayerTable(model.layerList, panelBody);
 //SceneControls(panelBody);
 console.log(model);
 

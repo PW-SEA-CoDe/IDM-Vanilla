@@ -27,15 +27,14 @@ export function PointerHover(event, target, camera) {
 
   raycaster.setFromCamera(pointer, camera);
 
-  let visTargets = [];
+  let visibleTargets = [];
   target.forEach((item) => {
-    if (target.visible === true) {
-      visTargets.push(item);
+    if (item.visible === true) {
+      visibleTargets.push(item);
     }
   });
-  //console.log(visTargets);
 
-  intersected = raycaster.intersectObjects(target, true);
+  intersected = raycaster.intersectObjects(visibleTargets, true);
   if (intersected.length > 0) {
     firstIntersected = intersected[0].object;
   } else {
@@ -47,13 +46,20 @@ export function PointerHover(event, target, camera) {
 }
 
 export function HoverColor(targets, materials, intersected) {
+  let visibleTargets = [];
+  targets.forEach((item) => {
+    if (item.visible === true) {
+      visibleTargets.push(item);
+    }
+  });
+
   if (intersected !== null) {
     //Execute if intersecting an object
     let hoverColor = new THREE.Color("rgb(255,100,0)");
     intersected.material.color.set(hoverColor);
 
     //Loop targets to do stuff to items that arent the intersected item
-    targets.forEach((target) => {
+    visibleTargets.forEach((target) => {
       if (target.uuid !== intersected.uuid) {
         materials.forEach((material) => {
           if (material.uuid === target.uuid) {
@@ -64,7 +70,7 @@ export function HoverColor(targets, materials, intersected) {
     });
   } else {
     //Execute if not interesting anything
-    targets.forEach((target) => {
+    visibleTargets.forEach((target) => {
       materials.forEach((material) => {
         if (material.uuid === target.uuid) {
           target.material.color.set(material.color);
