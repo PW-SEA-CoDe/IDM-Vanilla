@@ -1,4 +1,4 @@
-import { Header, Sidebar } from "./src/ui/Containers";
+import { Sidebar } from "./src/ui/Containers";
 import { Button } from "./src/ui/Components";
 
 //Wrap all UI elements in dict to be called in model to avoid document.getElement loop
@@ -13,24 +13,12 @@ export function UIElements() {
   elements.sb = Sidebar();
   //elements.header = Header();
   elements.buttons = {
-    layers: Button(
-      elements.sb.menu.body,
-      "/assets/icons/Layers.png",
-      "layer-button"
-    ),
-    scene: Button(
-      elements.sb.menu.body,
-      "/assets/icons/Cameras.png",
-      "camera-button"
-    ),
-    edit: Button(
-      elements.sb.menu.body,
-      "/assets/icons/Groups.png",
-      "group-button"
-    ),
+    layers: Button(elements.sb.menu.body, "/icons/Layers.png", "layer-button"),
+    scene: Button(elements.sb.menu.body, "/icons/Cameras.png", "camera-button"),
+    edit: Button(elements.sb.menu.body, "/icons/Groups.png", "group-button"),
     metrics: Button(
       elements.sb.menu.body,
-      "/assets/icons/Metrics.png",
+      "/icons/Metrics.png",
       "metrics-button"
     ),
   };

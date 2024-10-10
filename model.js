@@ -49,14 +49,14 @@ scene.add(
 
 //Models
 let model, views;
-model = await Fetch3DM("assets/models/Design-Model.3dm", true, true);
+model = await Fetch3DM("/models/Design-Model.3dm", true, true);
 console.log(model.object);
 model.meshes.forEach((item) => {
   scene.add(item);
 });
 
 //Load Named Views
-views = await FetchViewData("assets/models/CameraPositions.json");
+views = await FetchViewData("/models/CameraPositions.json");
 let currentView = views[3];
 console.log(currentView);
 camera.position.copy(currentView.position);
