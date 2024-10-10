@@ -13,24 +13,12 @@ export function UIElements() {
   elements.sb = Sidebar();
   //elements.header = Header();
   elements.buttons = {
-    layers: Button(
-      elements.sb.menu.body,
-      "IDM-Vanilla/icons/Layers.png",
-      "layer-button"
-    ),
-    scene: Button(
-      elements.sb.menu.body,
-      "IDM-Vanilla/icons/Cameras.png",
-      "camera-button"
-    ),
-    edit: Button(
-      elements.sb.menu.body,
-      "IDM-Vanilla/icons/Groups.png",
-      "group-button"
-    ),
+    layers: Button(elements.sb.menu.body, "icons/Layers.png", "layer-button"),
+    scene: Button(elements.sb.menu.body, "icons/Cameras.png", "camera-button"),
+    edit: Button(elements.sb.menu.body, "icons/Groups.png", "group-button"),
     metrics: Button(
       elements.sb.menu.body,
-      "IDM-Vanilla/icons/Metrics.png",
+      "icons/Metrics.png",
       "metrics-button"
     ),
   };
