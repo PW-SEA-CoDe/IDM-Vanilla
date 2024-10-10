@@ -1,7 +1,8 @@
-export default ({
-    esbuild: {
-        supported: {
-            'top-level-await': true
-        }
-    }
-})
+export default {
+  esbuild: {
+    supported: {
+      "top-level-await": true,
+    },
+  },
+  publicDir: "assets",
+};
