@@ -66,7 +66,7 @@ console.log(camera);
 
 //UI
 const uiElements = UIElements();
-let panelBody = uiElements.sb.panel.body;
+let panelBody = uiElements.nb.context.body;
 let buttons = uiElements.buttons;
 function getActiveMenuButton() {
   for (const [key, value] of Object.entries(buttons)) {
@@ -74,7 +74,7 @@ function getActiveMenuButton() {
     button.addEventListener("click", function () {
       panelBody.innerHTML = "";
       let activeLink = key;
-      uiElements.sb.panel.headerTitle.innerText =
+      uiElements.nb.context.headTitle.innerText =
         activeLink.charAt(0).toLocaleUpperCase() +
         activeLink.slice(1).toLowerCase();
       activeLink.toLocaleLowerCase();

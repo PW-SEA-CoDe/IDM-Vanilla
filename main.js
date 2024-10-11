@@ -1,5 +1,6 @@
 import { Sidebar } from "./src/ui/Containers";
 import { Button } from "./src/ui/Components";
+import NewSidebar from "./src/ui/containers/Sidebar";
 
 //Wrap all UI elements in dict to be called in model to avoid document.getElement loop
 
@@ -10,14 +11,14 @@ export function UIElements() {
   let elements = {};
   let ui = document.getElementById("ui");
 
-  elements.sb = Sidebar();
-  //elements.header = Header();
+  elements.nb = NewSidebar();
+
   elements.buttons = {
-    layers: Button(elements.sb.menu.body, "icons/Layers.png", "layer-button"),
-    scene: Button(elements.sb.menu.body, "icons/Cameras.png", "camera-button"),
-    edit: Button(elements.sb.menu.body, "icons/Groups.png", "group-button"),
+    layers: Button(elements.nb.nav.body, "icons/Layers.png", "layer-button"),
+    scene: Button(elements.nb.nav.body, "icons/Cameras.png", "camera-button"),
+    edit: Button(elements.nb.nav.body, "icons/Groups.png", "group-button"),
     metrics: Button(
-      elements.sb.menu.body,
+      elements.nb.nav.body,
       "icons/Metrics.png",
       "metrics-button"
     ),

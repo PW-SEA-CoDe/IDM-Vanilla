@@ -188,7 +188,7 @@ export let SidebarStyle = {
     width: "30%",
     height: "100%",
     backgroundColor: "none",
-    backgroundImage: "url(/assets/icons/Layers.png",
+    backgroundImage: "url(icons/Layers.png)",
     backgroundSize: "contain",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
