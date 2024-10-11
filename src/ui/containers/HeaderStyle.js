@@ -4,9 +4,9 @@ const HeaderStyle = {
   container: {
     position: "absolute",
     top: "0",
-    right: "10%",
+    right: "12.5%",
     height: "4%",
-    width: "80%",
+    width: "75%",
     backgroundColor: neutralColors.lightBlack,
     boxShadow: `0px 0px 10px ${neutralColors.lightBlack50}`,
     color: neutralColors.offWhite,
