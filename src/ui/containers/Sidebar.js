@@ -1,5 +1,5 @@
 import { CreateDiv, getParentDimensions, UpdateStyle } from "../UIUtils";
-import SidebarStyle from "./SidebarStyles";
+import SidebarStyle from "./SidebarStyle";
 
 function NewSidebar() {
   const ui = document.getElementById("ui");

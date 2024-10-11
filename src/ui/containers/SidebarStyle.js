@@ -44,7 +44,7 @@ const SidebarStyle = {
     transition: "left 0.5s",
     transitionTimingFunction: "ease",
     borderRadius: "0px 10px 10px 0px",
-    backgroundColor: neutralColors.lightBlack50,
+    backgroundColor: neutralColors.lightBlack75,
     boxShadow: `0px 0px 5px ${neutralColors.lightBlack25}`,
     backdropFilter: "blur(20px)",
     padding: "5px",
