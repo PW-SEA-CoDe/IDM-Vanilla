@@ -6,17 +6,19 @@
 
 This repository is a companion to [Interactive Design Models](https://github.com/PW-SEA-CoDe/InteractiveDesignModels) and focuses on Vanilla Javascript and Three.js to create a templated project which allows designers to load and interact with a Rhino '.3dm' file in a lightweight standalone web application.
 
-As Three's documentation is focused around implementation in JS, this repo acts as the foundation upon which our research and testing as part of the 2024 Perkins&Will 'Innovation Incubator' has taken place. Additional research has also been done using React-Three-Fiber(R3F) and can be found in a sibling repo here: [IDM - R3F](https://github.com/PW-SEA-CoDe/IDM-R3F)
+As Three's documentation is focused around implementation in Vanilla JS, this repo acts as the foundation upon which our research and testing as part of the 2024 Perkins&Will 'Innovation Incubator' has taken place. Additional research has also been done using React-Three-Fiber(R3F), a JSX wrapper for Three.js, and can be found in a sibling repo here: [IDM - R3F](https://github.com/PW-SEA-CoDe/IDM-R3F)
 
 ## Scope
 
-This project aims to explore the potential for users to interact with 3d models on the web using Three. Our initial goal is to better understand the core functionality that Three provides and develope best practices around model loading, site structure and model interactivity. In service of that goal, the project currently is focused around research and testing of the following components:
+This project focuses on creating a simple template which tries to integrate all of the 'essential' components required to build a client-side Three.js web application. Our goal was to research and test the best practices for model loading, site structure and model interactivity and, in service of this goal, the current codebase focuses on the following topics:
 
 - Loading .3dm files and accessing model data (layers, materials, attributes, etc.)
 - Creation of basic Three.js scene and critical components (lighting, camera, controls, etc.)
 - Interaction with model components (i.e. click or hover over model geometry)
 - Interaction between UI elements on model components
 - Basic styling of UI and models
+
+The current application incorporates all of the items above, although there is still considerable work needed for styling, interaction and QOL which we hope to continue exploring.
 
 ## Quick-Start Guide
 
@@ -82,4 +84,89 @@ Once the `dist` folder is tracked and pushed to the repository, you can then cre
 
 ``` bash
 $ git subtree push --prefix dist origin gh-pages
+```
+
+## Project Structure
+
+This project is written using Javascript to create a consistent language & syntax between UI elements and Three.js functions so that newer programmers can more clearly connect the logic of the application. That being said, the team has worked to implement similar design principles used by React in the way that we structured the project's components.  
+
+### Core Components
+
+At the root directory of the project, there are four primary files which act as the root from which all other functions and components are reference:
+
+```
+index.html      // Root file from which the site is served, and all other files are compiled
+index.css       // Defines the base styles used across the site
+main.js         // Main JS file where UI elements are called and compiled
+model.js        // Main JS file where Model functions are called and compiled
+```
+
+In this template, the bulk of the design and programming occurs in the `main.js` and `model.js` files, and their respective tree of components which will be called.
+
+### SRC/ Folder
+
+This project organizes all functions which are used by the application under the `src/` folder. In src, there are sub-folders which collect groupings of different functions.
+
+```
+index.html
+index.css
+main.js
+model.js
+
+src/ ↴
+  data/ ↴
+  model/ ↴
+  scene/ ↴
+  ui/ ↴ 
+```
+
+#### src/data/
+
+Collects all functions used to get data from either the loaded model, or outside sources (json, csv, etc.) 
+
+> 💡 This template does not yet have relevant scripts saved to this folder, but our goal is to populate scripts used on other projects at a later date.
+
+#### src/model/
+Collects all functions used to interact with the loaded .3dm model. These scripts depend on Three.js components.
+```
+src/ ↴
+  model/ ↴
+    Interaction.js    // Handles raycasting to loaded model (i.e. onHover, onClick functions with model)
+    Load3dm.js        // Handles loading the .3dm file and associated data (layers, materials, geometry)
+    LoadViews.js      // [IN DEV] Handles camera coordinates of Rhino Cameras using .json file 
+```
+#### src/scene/
+Collects all functions used to create the Three.js scene and its supporting components
+```
+src/ ↴
+  scene/ ↴
+    Lighting.js           // Handles a series of possible lighting scenarios which can be loaded
+    Postproccessing.js    // Handles postprocessing effects native to Three.js
+    SceneInit.js          // Handles creation of core scene components (scene, camera, renderer, etc.)
+    SceneUtils.js         // Handles collection of misc utils used by scene (handleWindowResize, etc.)
+```
+
+#### src/ui/
+Collects all functions/components used to create UI elements in the application. Contains subfolders for `containers/` and `components/` with sibling files similar to React file structure. For now, .JS files are used to handle styles similar to Tailwinds in order to allow tokenization in CSS for repeated styles like colors, fonts, etc.
+```
+src/ ↴
+  ui/ ↴
+    containers/ ↴
+      Header.js         // Header component
+      Sidebar.js        // Sidebar component
+
+    components/ ↴
+      LayerTable.js     // Layer table constructed by model layers
+      NavButton.js      // Repeatable NavButton
+
+    Styles.js           // General styles repeatably used across app
+    UIUtils.js          // Re-usable components to help with UI build (CreatDiv, UpdateStyle, etc.)
+```
+### Public Folder
+The public folder collects all static assets which are used by the application. This is where your .3dm file, any icons used in the app, and any external data (.csv, .json) should be stored.  The public folder contains subfolders for different data as follows:
+```
+public/ ↴
+  data/ ↴         // Any data used by the app (.csv, .json, etc.)
+  icons/ ↴        // Any icons used by the app
+  models/ ↴       // Any models loaded by the app
 ```
