@@ -1,7 +1,7 @@
 # IDM-Vanilla
-![code size](https://img.shields.io/github/languages/code-size/PW-SEA-CoDe/InteractiveDesignModels?style=flat-square)
-![license](https://img.shields.io/github/license/PW-SEA-CoDe/InteractiveDesignModels?style=flat-square)
-![issues](https://img.shields.io/github/issues/PW-SEA-CoDe/InteractiveDesignModels)
+![code size](https://img.shields.io/github/languages/code-size/PW-SEA-CoDe/IDM-Vanilla?style=flat-square)
+![license](https://img.shields.io/github/license/PW-SEA-CoDe/IDM-Vanilla?style=flat-square)
+![issues](https://img.shields.io/github/issues/PW-SEA-CoDe/IDM-Vanilla)
 
 > This project is part of the 2024 Perkins&Will 'Innovation Incubator' research grant. The codebase is intended for public use, and while currently under heavy development, we welcome contributions once the research grant has concluded (~ Q4 2024).
 
