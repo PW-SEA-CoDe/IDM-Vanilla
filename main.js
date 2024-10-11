@@ -1,6 +1,6 @@
-import { Button } from "./src/ui/Components";
 import Sidebar from "./src/ui/containers/Sidebar";
 import Header from "./src/ui/containers/Header";
+import NavButton from "./src/ui/components/NavButton";
 
 //Wrap all UI elements in dict to be called in model to avoid document.getElement loop
 
@@ -15,13 +15,29 @@ export function UIElements() {
   elements.hd = Header();
 
   elements.buttons = {
-    layers: Button(elements.nb.nav.body, "icons/Layers.png", "layer-button"),
-    scene: Button(elements.nb.nav.body, "icons/Cameras.png", "camera-button"),
-    edit: Button(elements.nb.nav.body, "icons/Groups.png", "group-button"),
-    metrics: Button(
+    layers: NavButton(
+      elements.nb.nav.body,
+      "icons/Layers.png",
+      "layer-button",
+      elements.nb.context.container
+    ),
+    scene: NavButton(
+      elements.nb.nav.body,
+      "icons/Cameras.png",
+      "camera-button",
+      elements.nb.context.container
+    ),
+    edit: NavButton(
+      elements.nb.nav.body,
+      "icons/Groups.png",
+      "group-button",
+      elements.nb.context.container
+    ),
+    metrics: NavButton(
       elements.nb.nav.body,
       "icons/Metrics.png",
-      "metrics-button"
+      "metrics-button",
+      elements.nb.context.container
     ),
   };
   function ActiveButton() {

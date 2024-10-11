@@ -18,10 +18,11 @@ import {
   PointerHover,
 } from "./src/model/Interaction";
 import { UIElements } from "./main";
-import { LayerTable, SceneControls } from "./src/ui/Components";
+import { SceneControls } from "./src/ui/Components";
 import FetchViewData from "./src/model/LoadViews";
 import PostProcessing from "./src/scene/Postprocessing";
 import EditTab from "./src/ui/EditTab";
+import LayerTable from "./src/ui/components/LayerTable";
 
 //Scene
 const { scene, sceneContainer, renderer, camera, controls } = SceneInit();

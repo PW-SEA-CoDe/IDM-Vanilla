@@ -8,93 +8,9 @@
  * function StackingDiagram should be defined in Graphics.js
  */
 import { CreateDiv, UpdateStyle, getParentDimensions } from "./UIUtils";
-import {
-  ButtonStyle,
-  LayerTableStyle,
-  SceneControlsStyle,
-  containerStyles,
-  neutralColors,
-} from "./Styles";
+import { SceneControlsStyle, containerStyles, neutralColors } from "./Styles";
 
 //Functional UI Elements
-export function Button(container, icon, id) {
-  let btn;
-  btn = CreateDiv(id, ButtonStyle.static);
-  btn.style.height = `${getParentDimensions(container) - 25}px`;
-  btn.style.width = `${getParentDimensions(container) - 25}px`;
-  btn.style.backgroundImage = `url(${icon})`;
-  container.append(btn);
-  btn.addEventListener("mouseover", function () {
-    UpdateStyle(btn, ButtonStyle.hover);
-  });
-  btn.addEventListener("mouseleave", function () {
-    UpdateStyle(btn, ButtonStyle.static);
-  });
-
-  btn.addEventListener("resize", function () {
-    btn.style.height = `${getParentDimensions(container - 25)}px`;
-    btn.style.width = `${getParentDimensions(container - 25)}px`;
-  });
-
-  return btn;
-}
-
-export function LayerTable(layers, cont) {
-  const container = cont;
-
-  function constructLayerTable() {
-    let wrapper;
-    wrapper = CreateDiv("layer-list-test", LayerTableStyle.wrapper);
-
-    layers.forEach((layer) => {
-      let div = CreateDiv(`${layer.name}`, LayerTableStyle.layerBaseStyle);
-      div.innerText = layer.name;
-      wrapper.append(div);
-      div.style.marginLeft = `${10 * (layer.depth - 1)}%`;
-      div.style.width = `${100 - 10 * (layer.depth - 1)}%`;
-
-      //Update div style if layer is hidden
-      if (layer.object.visible === true) {
-        UpdateStyle(div, LayerTableStyle.layerActiveStyle);
-      } else if (layer.object.visible === false) {
-        UpdateStyle(div, LayerTableStyle.layerHiddenStyle);
-      }
-    });
-    container.append(wrapper);
-  }
-  constructLayerTable();
-
-  function layerToggle() {
-    const layerTable = document.getElementById("layer-list-test");
-    const uiLayers = layerTable.querySelectorAll("div");
-    uiLayers.forEach((div) => {
-      div.addEventListener("click", function (event) {
-        layers.forEach((layer) => {
-          Toggle(layer, div);
-        });
-      });
-    });
-
-    function Toggle(target, button) {
-      console.log(button.id);
-      if (target.name === button.id) {
-        console.log(target);
-        //Need to update to provide a live list of visible geometry in scene
-        target.geometry.forEach((geometry) => {
-          geometry.visible = !geometry.visible;
-        });
-        target.object.visible = !target.object.visible;
-        if (target.object.visible === true) {
-          UpdateStyle(button, LayerTableStyle.layerActiveStyle);
-        } else if (target.object.visible === false) {
-          UpdateStyle(button, LayerTableStyle.layerHiddenStyle);
-        }
-      }
-    }
-  }
-  layerToggle();
-}
-
 export function SceneControls(container, light, camera) {
   let wrapper;
   let sunControls, cameraControls, importedViews;

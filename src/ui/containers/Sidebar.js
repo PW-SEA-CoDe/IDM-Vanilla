@@ -83,11 +83,11 @@ function NewSidebar() {
     toggle.addEventListener("click", function () {
       if (toggleOpen === false) {
         toggle.style.transform = "rotate(0deg)";
-        panel.style.left = "min(10%, 80px)";
+        panel.style.left = "8%";
         updatePanelState();
       } else {
         toggle.style.transform = "rotate(-45deg)";
-        panel.style.left = "-30%";
+        panel.style.left = "-100%";
         updatePanelState();
       }
     });
